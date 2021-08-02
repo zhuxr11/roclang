@@ -29,7 +29,7 @@ The goal of `roclang` is to diffuse documentation content to facilitate more eff
 
 ## Installation
 
-You can install the released version of roclang from [github](https://github.com/zhuxr11/roclang) with:
+You can install the released version of roclang from [github](https://github.com/) with:
 
 ``` r
 remotes::install_github("zhuxr11/roclang")

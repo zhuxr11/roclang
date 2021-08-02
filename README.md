@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 <!-- badges: end -->
 
 **Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 01:17:04<br /> **Compiled**: 2021-08-03 01:17:12
+2021-08-03 01:24:38<br /> **Compiled**: 2021-08-03 01:24:42
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -27,7 +27,7 @@ code.
 ## Installation
 
 You can install the released version of roclang from
-[github](https://github.com/zhuxr11/roclang) with:
+[github](https://github.com/) with:
 
 ``` r
 remotes::install_github("zhuxr11/roclang")
