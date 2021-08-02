@@ -346,7 +346,7 @@ roc_eval_text <- function(roclet, input) {
     stringr::str_replace(paste0(rex::escape(roxy_comment), "$"), "")
 }
 
-#' Get roxygen2 header to a multi-line text
+#' Get roxygen2 header
 #'
 #' @noRd
 .get_roxy_header <- function() {
