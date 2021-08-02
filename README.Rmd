@@ -98,7 +98,6 @@ lm_copy <- function(formula, df, lm_arg) {
 To view the compiled Rd file, use `roc_eval_text()` function as an improved version of `roxygen::roc_proc_text()` function, in that the former further evaluates inline code and code blocks before parsing the text into Rd.
 
 ```{r example-roxygen-compile}
-library(roxygen2)
 library(magrittr)
 fun_text <- '
 #\' Cited Version of \\code{stats::lm} for

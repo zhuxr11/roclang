@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 <!-- badges: end -->
 
 **Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 01:24:38<br /> **Compiled**: 2021-08-03 01:24:42
+2021-08-03 01:28:34<br /> **Compiled**: 2021-08-03 01:28:38
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -171,7 +171,6 @@ former further evaluates inline code and code blocks before parsing the
 text into Rd.
 
 ``` r
-library(roxygen2)
 library(magrittr)
 fun_text <- '
 #\' Cited Version of \\code{stats::lm} for
@@ -373,16 +372,16 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] roxygen2_7.1.1 magrittr_2.0.1 roclang_0.1.0 
+#> [1] magrittr_2.0.1 roclang_0.1.0 
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] Rcpp_1.0.5       rex_1.2.0        xml2_1.3.2       knitr_1.29      
-#>  [5] tidyselect_1.1.0 R6_2.4.1         rlang_0.4.10     fansi_0.4.2     
-#>  [9] blob_1.2.1       stringr_1.4.0    dplyr_1.0.7      tools_4.0.5     
-#> [13] xfun_0.15        utf8_1.1.4       DBI_1.1.0        htmltools_0.5.0 
-#> [17] ellipsis_0.3.2   assertthat_0.2.1 yaml_2.2.1       digest_0.6.25   
-#> [21] tibble_3.1.3     lifecycle_1.0.0  crayon_1.3.4     tidyr_1.1.3     
-#> [25] purrr_0.3.4      vctrs_0.3.8      glue_1.4.1       evaluate_0.14   
-#> [29] rmarkdown_2.3    stringi_1.4.6    compiler_4.0.5   pillar_1.6.2    
-#> [33] generics_0.0.2   pkgconfig_2.0.3
+#>  [1] Rcpp_1.0.5       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
+#>  [5] knitr_1.29       tidyselect_1.1.0 R6_2.4.1         rlang_0.4.10    
+#>  [9] fansi_0.4.2      blob_1.2.1       stringr_1.4.0    dplyr_1.0.7     
+#> [13] tools_4.0.5      xfun_0.15        utf8_1.1.4       DBI_1.1.0       
+#> [17] htmltools_0.5.0  ellipsis_0.3.2   assertthat_0.2.1 yaml_2.2.1      
+#> [21] digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0  crayon_1.3.4    
+#> [25] tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8      glue_1.4.1      
+#> [29] evaluate_0.14    rmarkdown_2.3    stringi_1.4.6    compiler_4.0.5  
+#> [33] pillar_1.6.2     generics_0.0.2   pkgconfig_2.0.3
 ```
