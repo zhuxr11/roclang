@@ -204,107 +204,107 @@ roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 #> }
 #> \arguments{
 #> \item{formula}{Cited from \code{\link[stats]{lm}} with the same argument name:
-#> an object of class code{"link[stats]{formula}"} (or one that
+#> an object of class \code{"\link[stats]{formula}"} (or one that
 #>     can be coerced to that class): a symbolic description of the
 #>     model to be fitted.  The details of model specification are given
-#>     under sQuote{Details}.}
+#>     under \sQuote{Details}.}
 #> 
 #> \item{df}{Cited from the argument `data` of \code{\link[stats]{lm}}:
 #> an optional data frame, list or environment (or object
-#>     coercible by code{link{as.data.frame}} to a data frame) containing
-#>     the variables in the model.  If not found in code{data}, the
-#>     variables are taken from code{environment(formula)},
-#>     typically the environment from which code{lm} is called.}
+#>     coercible by \code{\link{as.data.frame}} to a data frame) containing
+#>     the variables in the model.  If not found in \code{data}, the
+#>     variables are taken from \code{environment(formula)},
+#>     typically the environment from which \code{lm} is called.}
 #> 
 #> \item{lm_arg}{Named list of
-#> arguments passed on to code{link[stats:lm]{stats::lm}}
-#>   describe{
-#>     item{code{subset}}{an optional vector specifying a subset of observations
+#> arguments passed on to \code{\link[stats:lm]{stats::lm}}
+#>   \describe{
+#>     \item{\code{subset}}{an optional vector specifying a subset of observations
 #>     to be used in the fitting process.}
-#>     item{code{weights}}{an optional vector of weights to be used in the fitting
-#>     process.  Should be code{NULL} or a numeric vector.
+#>     \item{\code{weights}}{an optional vector of weights to be used in the fitting
+#>     process.  Should be \code{NULL} or a numeric vector.
 #>     If non-NULL, weighted least squares is used with weights
-#>     code{weights} (that is, minimizing code{sum(w*e^2)}); otherwise
-#>     ordinary least squares is used.  See also sQuote{Details},}
-#>     item{code{na.action}}{a function which indicates what should happen
-#>     when the data contain code{NA}s.  The default is set by
-#>     the code{na.action} setting of code{link{options}}, and is
-#>     code{link[stats]{na.fail}} if that is unset.  The sQuote{factory-fresh}
-#>     default is code{link[stats]{na.omit}}.  Another possible value is
-#>     code{NULL}, no action.  Value code{link[stats]{na.exclude}} can be useful.}
-#>     item{code{method}}{the method to be used; for fitting, currently only
-#>     code{method = "qr"} is supported; code{method = "model.frame"} returns
-#>     the model frame (the same as with code{model = TRUE}, see below).}
-#>     item{code{model}}{logicals.  If code{TRUE} the corresponding
+#>     \code{weights} (that is, minimizing \code{sum(w*e^2)}); otherwise
+#>     ordinary least squares is used.  See also \sQuote{Details},}
+#>     \item{\code{na.action}}{a function which indicates what should happen
+#>     when the data contain \code{NA}s.  The default is set by
+#>     the \code{na.action} setting of \code{\link{options}}, and is
+#>     \code{\link[stats]{na.fail}} if that is unset.  The \sQuote{factory-fresh}
+#>     default is \code{\link[stats]{na.omit}}.  Another possible value is
+#>     \code{NULL}, no action.  Value \code{\link[stats]{na.exclude}} can be useful.}
+#>     \item{\code{method}}{the method to be used; for fitting, currently only
+#>     \code{method = "qr"} is supported; \code{method = "model.frame"} returns
+#>     the model frame (the same as with \code{model = TRUE}, see below).}
+#>     \item{\code{model}}{logicals.  If \code{TRUE} the corresponding
 #>     components of the fit (the model frame, the model matrix, the
 #>     response, the QR decomposition) are returned.
 #>   }
-#>     item{code{x}}{logicals.  If code{TRUE} the corresponding
+#>     \item{\code{x}}{logicals.  If \code{TRUE} the corresponding
 #>     components of the fit (the model frame, the model matrix, the
 #>     response, the QR decomposition) are returned.
 #>   }
-#>     item{code{y}}{logicals.  If code{TRUE} the corresponding
+#>     \item{\code{y}}{logicals.  If \code{TRUE} the corresponding
 #>     components of the fit (the model frame, the model matrix, the
 #>     response, the QR decomposition) are returned.
 #>   }
-#>     item{code{qr}}{logicals.  If code{TRUE} the corresponding
+#>     \item{\code{qr}}{logicals.  If \code{TRUE} the corresponding
 #>     components of the fit (the model frame, the model matrix, the
 #>     response, the QR decomposition) are returned.
 #>   }
-#>     item{code{singular.ok}}{logical. If code{FALSE} (the default in S but
-#>     not in R) a singular fit is an error.}
-#>     item{code{contrasts}}{an optional list. See the code{contrasts.arg}
-#>     of code{link[stats]{model.matrix.default}}.}
-#>     item{code{offset}}{this can be used to specify an emph{a priori} known
+#>     \item{\code{singular.ok}}{logical. If \code{FALSE} (the default in S but
+#>     not in \R) a singular fit is an error.}
+#>     \item{\code{contrasts}}{an optional list. See the \code{contrasts.arg}
+#>     of \code{\link[stats]{model.matrix.default}}.}
+#>     \item{\code{offset}}{this can be used to specify an \emph{a priori} known
 #>     component to be included in the linear predictor during fitting.
-#>     This should be code{NULL} or a numeric vector or matrix of extents
-#>     matching those of the response.  One or more code{link[stats]{offset}} terms can be
+#>     This should be \code{NULL} or a numeric vector or matrix of extents
+#>     matching those of the response.  One or more \code{\link[stats]{offset}} terms can be
 #>     included in the formula instead or as well, and if more than one are
-#>     specified their sum is used.  See code{link[stats]{model.offset}}.}
+#>     specified their sum is used.  See \code{\link[stats]{model.offset}}.}
 #>   }}
 #> }
 #> \value{
-#> code{lm} returns an object of code{link{class}} code{"lm"} or for
-#>   multiple responses of class code{c("mlm", "lm")}.
+#> \code{lm} returns an object of \code{\link{class}} \code{"lm"} or for
+#>   multiple responses of class \code{c("mlm", "lm")}.
 #> 
-#>   The functions code{summary} and code{link[stats]{anova}} are used to
+#>   The functions \code{summary} and \code{\link[stats]{anova}} are used to
 #>   obtain and print a summary and analysis of variance table of the
-#>   results.  The generic accessor functions code{coefficients},
-#>   code{effects}, code{fitted.values} and code{residuals} extract
-#>   various useful features of the value returned by code{lm}.
+#>   results.  The generic accessor functions \code{coefficients},
+#>   \code{effects}, \code{fitted.values} and \code{residuals} extract
+#>   various useful features of the value returned by \code{lm}.
 #> 
-#>   An object of class code{"lm"} is a list containing at least the
+#>   An object of class \code{"lm"} is a list containing at least the
 #>   following components:
 #> 
-#>   item{coefficients}{a named vector of coefficients}
-#>   item{residuals}{the residuals, that is response minus fitted values.}
-#>   item{fitted.values}{the fitted mean values.}
-#>   item{rank}{the numeric rank of the fitted linear model.}
-#>   item{weights}{(only for weighted fits) the specified weights.}
-#>   item{df.residual}{the residual degrees of freedom.}
-#>   item{call}{the matched call.}
-#>   item{terms}{the code{link[stats]{terms}} object used.}
-#>   item{contrasts}{(only where relevant) the contrasts used.}
-#>   item{xlevels}{(only where relevant) a record of the levels of the
+#>   \item{coefficients}{a named vector of coefficients}
+#>   \item{residuals}{the residuals, that is response minus fitted values.}
+#>   \item{fitted.values}{the fitted mean values.}
+#>   \item{rank}{the numeric rank of the fitted linear model.}
+#>   \item{weights}{(only for weighted fits) the specified weights.}
+#>   \item{df.residual}{the residual degrees of freedom.}
+#>   \item{call}{the matched call.}
+#>   \item{terms}{the \code{\link[stats]{terms}} object used.}
+#>   \item{contrasts}{(only where relevant) the contrasts used.}
+#>   \item{xlevels}{(only where relevant) a record of the levels of the
 #>     factors used in fitting.}
-#>   item{offset}{the offset used (missing if none were used).}
-#>   item{y}{if requested, the response used.}
-#>   item{x}{if requested, the model matrix used.}
-#>   item{model}{if requested (the default), the model frame used.}
-#>   item{na.action}{(where relevant) information returned by
-#>     code{link[stats]{model.frame}} on the special handling of code{NA}s.}
+#>   \item{offset}{the offset used (missing if none were used).}
+#>   \item{y}{if requested, the response used.}
+#>   \item{x}{if requested, the model matrix used.}
+#>   \item{model}{if requested (the default), the model frame used.}
+#>   \item{na.action}{(where relevant) information returned by
+#>     \code{\link[stats]{model.frame}} on the special handling of \code{NA}s.}
 #> 
-#>   In addition, non-null fits will have components code{assign},
-#>   code{effects} and (unless not requested) code{qr} relating to the linear
-#>   fit, for use by extractor functions such as code{summary} and
-#>   code{link[stats]{effects}}.
+#>   In addition, non-null fits will have components \code{assign},
+#>   \code{effects} and (unless not requested) \code{qr} relating to the linear
+#>   fit, for use by extractor functions such as \code{summary} and
+#>   \code{\link[stats]{effects}}.
 #> }
 #> \description{
 #> Cited from \code{\link[stats]{lm}}:
-#> code{lm} is used to fit linear models.
+#> \code{lm} is used to fit linear models.
 #>   It can be used to carry out regression,
 #>   single stratum analysis of variance and
-#>   analysis of covariance (although code{link[stats]{aov}} may provide a more
+#>   analysis of covariance (although \code{\link[stats]{aov}} may provide a more
 #>   convenient interface for these).
 #> }
 #> \note{
@@ -321,14 +321,14 @@ roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 #> weight <- c(ctl, trt)
 #> lm.D9 <- lm(weight ~ group)
 #> lm.D90 <- lm(weight ~ group - 1) # omitting intercept
-#> donttest{
+#> \donttest{
 #> anova(lm.D9)
 #> summary(lm.D90)
 #> }
 #> opar <- par(mfrow = c(2,2), oma = c(0, 0, 1.1, 0))
 #> plot(lm.D9, las = 1)      # Residuals, Fitted, ...
 #> par(opar)
-#> dontshow{
+#> \dontshow{
 #> ## model frame :
 #> stopifnot(identical(lm(weight ~ group, method = "model.frame"),
 #>                     model.frame(lm.D9)))

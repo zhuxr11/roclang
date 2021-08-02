@@ -335,7 +335,9 @@ roc_eval_text <- function(roclet, input) {
           # Remove roxygen comment headers from new lines
           .remove_roxy_header() %>%
           rlang::parse_expr() %>%
-          eval()
+          eval() %>%
+          # Add roxygen comment headers to new lines
+          .add_roxy_header()
       }
     )
 }
