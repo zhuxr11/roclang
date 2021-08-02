@@ -1,0 +1,152 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# roclang
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
+<!-- badges: end -->
+
+The goal of roclang is to diffuse content to facilitate more efficient programming. But unlike rlang, which works on diffusing R code, roclang works on diffusing roxygen2 documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the roxygen2 documentation of another function by inserting inline code.
+
+## Installation
+
+You can install the released version of roclang from [bitbucket](https://CRAN.R-project.org) with:
+
+``` r
+remotes::install_bitbucket("mprobe_xiurui/roclang")
+```
+
+## Examples of extracting and diffusing content from other functions' documentions
+
+These are some basic examples which show you how to diffuse sections (both general and self-defined) or parameters (including dot-parameters) from the documentation of another function, e.g. `stats::lm`:
+
+```{r example}
+library(roclang)
+library(magrittr)
+# Inherit a standard section, and leave the first letter as is
+extract_roc_text(stats::lm, type = "general", select = "description", capitalize = NA) %>%
+  cat()
+
+# Inherit a self-defined section, and capitalize the first letter
+extract_roc_text(stats::lm, type = "section", select = "Using time series", capitalize = TRUE) %>%
+  cat()
+
+# Inherit a parameter, and diffuse it into text
+paste0(
+  "Here is the `formula` argument of `stats::lm`, defined as: ",
+  extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = FALSE)
+) %>%
+  cat()
+
+# Inherit a set of dot params, and diffuse it into text
+paste0(
+  "`lm_arg` is a named list of ",
+  extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)
+) %>%
+  cat()
+```
+
+## Examples of use in roxygen2 comments
+
+In `roxygen2` comments, one can use inline code to diffuse the extracted contents into his or her own documentations:
+
+```{r example-roxygen2-code}
+#' Cited Version of \code{stats::lm} for
+#' `r roclang::extract_roc_text(stats::lm, type = "general", select = "title", capitalize = TRUE)`
+#'
+#' Cited from \code{\link[stats]{lm}}:
+#' `r roclang::extract_roc_text(stats::lm, type = "general", select = "description", capitalize = FALSE)`
+#'
+#' @param formula Cited from \code{\link[stats]{lm}} with the same argument ame:
+#' `r roclang::extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = NA)`
+#' @param df Cited from the argument `data` of \code{\link[stats]{lm}}:
+#' `r roclang::extract_roc_text(stats::lm, type = "param", select = "data", capitalize = NA)`
+#' @param lm_arg Named list of
+#' `r roclang::extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)`
+#'
+#' @return `r roclang::extract_roc_text(stats::lm, type = "general", select = "return", capitalize = TRUE)`
+#'
+#' @note Copied by: Xiurui Zhu
+#'
+#' @examples
+#' `r roclang::extract_roc_text(stats::lm, type = "general", select = "examples", capitalize = NA)`
+lm_copy <- function(formula, df, lm_arg) {
+  library(rlang)
+  rlang::exec(stats::lm, formula = formula, data = df, !!!lm_arg)
+}
+```
+
+```{r example-roxygen2-compile, echo=FALSE}
+library(roxygen2)
+library(magrittr)
+fun_text <- '
+#\' Cited Version of \\code{stats::lm} for
+#\' `r roclang::extract_roc_text(stats::lm, type = "general", select = "title", capitalize = TRUE)`
+#\'
+#\' Cited from \\code{\\link[stats]{lm}}:
+#\' `r roclang::extract_roc_text(stats::lm, type = "general", select = "description", capitalize = TRUE)`
+#\'
+#\' @param formula Cited from \\code{\\link[stats]{lm}} with the same argument name:
+#\' `r roclang::extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = NA)`
+#\' @param df Cited from the argument `data` of \\code{\\link[stats]{lm}}:
+#\' `r roclang::extract_roc_text(stats::lm, type = "param", select = "data", capitalize = NA)`
+#\' @param lm_arg Named list of
+#\' `r roclang::extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)`
+#\'
+#\' @return `r roclang::extract_roc_text(stats::lm, type = "general", select = "return", capitalize = TRUE)`
+#\'
+#\' @note Copied by: Xiurui Zhu
+#\'
+#\' @examples
+#\' `r roclang::extract_roc_text(stats::lm, type = "general", select = "examples", capitalize = NA)`
+lm_copy <- function(formula, df, lm_arg) {
+  library(rlang)
+  rlang::exec(stats::lm, formula = formula, data = df, !!!lm_arg)
+}
+'
+fun_text_eval <- fun_text %>%
+  stringr::str_extract_all("`r .*?`") %>%
+  purrr::pluck(1L) %>%
+  purrr::map_chr(~ {
+    .x %>%
+      stringr::str_replace("`r (.*)`", "\\1") %>%
+      str2lang() %>%
+      eval()
+  })
+roxy_comment <- options("roxygen.comment") %>%
+  purrr::pluck(1L)
+if (is.null(roxy_comment) == TRUE) {
+  roxy_comment <- "#' "
+}
+fun_text_update <- purrr::reduce(
+  .x = fun_text_eval,
+  .f = function(text, replacement) {
+    stringr::str_replace(
+      text,
+      "`r .*?`",
+      # Add roxygen comment head
+      replacement %>%
+        stringr::str_replace_all(paste0("\n(?<!", rex::escape(roxy_comment), ")"),
+                                 paste0("\n", rex::escape(roxy_comment)))
+    )
+  },
+  .init = fun_text
+)
+
+roxygen2::roc_proc_text(roxygen2::rd_roclet(), fun_text_update) %>%
+  purrr::pluck("lm_copy.Rd")
+```
