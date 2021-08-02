@@ -1,11 +1,11 @@
 Package: roclang
 Title: Helper Functions to Cite and Diffuse R Functions' Documentations
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person(given = "Xiurui",
            family = "Zhu",
            role = c("aut", "cre"),
-           email = whoami::email_address(),
+           email = "zxr6@163.com",
            comment = NULL)
 Description: roclang package, like rlang package, dedicates itself to diffusing content to facilitate more efficient programming. But unlike rlang, which works on diffusing R code, roclang works on diffusing roxygen2 documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the roxygen2 documentation of another function by inserting inline code. 
 License: MIT + file LICENSE
