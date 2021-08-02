@@ -26,14 +26,14 @@ Change log:
 }
 \examples{
 fun_text <- '
-#\' This is a `r nrow(iris)`-row matrix.
+#\' \\\\code{iris} is a `r nrow(iris)`-row matrix.
 #\'
-#\' This matrix has
+#\' \\\\code{iris} matrix has
 #\' ```{r results="hold"}
 #\' ncol(iris)
 #\' ```
 #\' columns.
-my_fun <- function() iris
+print_iris <- function() iris
 '
 roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 }

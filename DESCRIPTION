@@ -23,5 +23,6 @@ Imports:
     tibble (>= 3.0.4),
     stringr (>= 1.4.0),
     magrittr (>= 2.0.1),
+    rlang (>= 0.4.10),
     roxygen2 (>= 7.1.1),
     rex (>= 1.2.0)

@@ -244,74 +244,27 @@ extract_roc_text <- function(
 #'
 #' @examples
 #' fun_text <- '
-#' #\' This is a `r nrow(iris)`-row matrix.
+#' #\' \\code{iris} is a `r nrow(iris)`-row matrix.
 #' #\'
-#' #\' This matrix has
+#' #\' \\code{iris} matrix has
 #' #\' ```{r results="hold"}
 #' #\' ncol(iris)
 #' #\' ```
 #' #\' columns.
-#' my_fun <- function() iris
+#' print_iris <- function() iris
 #' '
 #' roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 roc_eval_text <- function(roclet, input) {
   fun_text <- input
-  # Evaluate inline code
-  extract_pattern <- "`r .*?`"
-  replace_pattern <- "`r (.*)`"
-  fun_text_eval_inline <- fun_text %>%
-    stringr::str_extract_all(extract_pattern) %>%
-    purrr::pluck(1L) %>%
-    purrr::map_chr(~ {
-      .x %>%
-        stringr::str_replace(replace_pattern, "\\1") %>%
-        str2lang() %>%
-        eval()
-    })
-  # Replace inline code results
-  fun_text <- purrr::reduce(
-    .x = fun_text_eval_inline,
-    .f = function(text, replacement) {
-      stringr::str_replace(
-        text,
-        extract_pattern,
-        # Add roxygen comment header (with regex escape)
-        .add_roxy_header(replacement)
-      )
-    },
-    .init = fun_text
-  )
-  # Evaluate block code
-  extract_pattern <- stringr::regex("`{3,}.*\\{r.*\\}.*?`{3,}",
-                                    multiline = TRUE,
-                                    dotall = TRUE)
-  replace_pattern <- stringr::regex("`{3,}.*\\{r.*\\}(.*)`{3,}",
-                                    multiline = TRUE,
-                                    dotall = TRUE)
-  fun_text_eval_block <- fun_text %>%
-    stringr::str_extract_all(extract_pattern) %>%
-    purrr::pluck(1L) %>%
-    purrr::map_chr(~ {
-      .x %>%
-        stringr::str_replace(replace_pattern, "\\1") %>%
-        # Remove roxygen comment headers from new lines
-        .remove_roxy_header() %>%
-        str2lang() %>%
-        eval()
-    })
-  # Replace inline code results
-  fun_text <- purrr::reduce(
-    .x = fun_text_eval_block,
-    .f = function(text, replacement) {
-      stringr::str_replace(
-        text,
-        extract_pattern,
-        # Add roxygen comment header (with regex escape)
-        .add_roxy_header(replacement)
-      )
-    },
-    .init = fun_text
-  )
+  fun_text <- fun_text %>%
+    # Evaluate inline code and replace
+    .replace_eval_block("`r (.*?)`") %>%
+    # Evaluate code blocks and replace
+    .replace_eval_block(
+      stringr::regex("`{3,}\\{r.*\\}(.*?)`{3,}",
+                     multiline = TRUE,
+                     dotall = TRUE)
+    )
   roxygen2::roc_proc_text(roxygen2::rd_roclet(), fun_text)
 }
 
@@ -356,4 +309,33 @@ roc_eval_text <- function(roclet, input) {
     roxy_comment <- "#' "
   }
   roxy_comment
+}
+
+#' Evaluate code block and diffuse results into text
+#'
+#' @importFrom rlang parse_expr
+#'
+#' @inheritParams roc_eval_text
+#' @param pattern Regular expression that mark the pattern of code block.
+#' The code section should be only 1 and marked as "(.*?)".
+#' For example, inline \code{[code]} is of pattern: `r '\u0060r [code]\u0060'`,
+#' and then we can use \code{pattern = "`r '\u0060r (.*?)\u0060'`"}.
+#' And \code{[code]} block is of pattern: `r '\u0060\u0060\u0060{r}[code]\u0060\u0060\u0060'`,
+#' and then we can use \code{pattern = "`r '\u0060{3,}\\\\{r.*\\\\}(.*?)\u0060{3,}'`"},
+#' considering the variant number of backticks (at least 3) and variant content in code block options.
+#'
+#' @noRd
+.replace_eval_block <- function(input, pattern) {
+  input %>%
+    stringr::str_replace_all(
+      pattern,
+      function(extract_text) {
+        extract_text %>%
+          stringr::str_replace(pattern, "\\1") %>%
+          # Remove roxygen comment headers from new lines
+          .remove_roxy_header() %>%
+          rlang::parse_expr() %>%
+          eval()
+      }
+    )
 }
