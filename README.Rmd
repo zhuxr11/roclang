@@ -90,7 +90,9 @@ lm_copy <- function(formula, df, lm_arg) {
 }
 ```
 
-```{r example-roxygen2-compile, echo=FALSE}
+To view the compiled Rd file, use `roc_eval_text()` function as an improved version of `roxygen::roc_proc_text()` function, in that the former further evaluates inline code and code blocks before parsing the text into Rd.
+
+```{r example-roxygen2-compile}
 library(roxygen2)
 library(magrittr)
 fun_text <- '
@@ -118,35 +120,5 @@ lm_copy <- function(formula, df, lm_arg) {
   rlang::exec(stats::lm, formula = formula, data = df, !!!lm_arg)
 }
 '
-fun_text_eval <- fun_text %>%
-  stringr::str_extract_all("`r .*?`") %>%
-  purrr::pluck(1L) %>%
-  purrr::map_chr(~ {
-    .x %>%
-      stringr::str_replace("`r (.*)`", "\\1") %>%
-      str2lang() %>%
-      eval()
-  })
-roxy_comment <- options("roxygen.comment") %>%
-  purrr::pluck(1L)
-if (is.null(roxy_comment) == TRUE) {
-  roxy_comment <- "#' "
-}
-fun_text_update <- purrr::reduce(
-  .x = fun_text_eval,
-  .f = function(text, replacement) {
-    stringr::str_replace(
-      text,
-      "`r .*?`",
-      # Add roxygen comment head
-      replacement %>%
-        stringr::str_replace_all(paste0("\n(?<!", rex::escape(roxy_comment), ")"),
-                                 paste0("\n", rex::escape(roxy_comment)))
-    )
-  },
-  .init = fun_text
-)
-
-roxygen2::roc_proc_text(roxygen2::rd_roclet(), fun_text_update) %>%
-  purrr::pluck("lm_copy.Rd")
+roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 ```

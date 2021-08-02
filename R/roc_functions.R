@@ -224,3 +224,136 @@ extract_roc_text <- function(
   )
   paste(roxygen_text, fun_text, sep = "\n")
 }
+
+#' Generate Rd from text with evaluated inline code and code blocks
+#'
+#' \code{roc_eval_text} is an upgraded version of \code{\link[roxygen2]{roc_proc_text}}
+#' that evaluates inline and block code before generating Rd.
+#'
+#' @inheritParams roxygen2::roc_proc_text
+#'
+#' @return Same as \code{\link[roxygen2]{roc_proc_text}}.
+#'
+#' @note Change log:
+#' \itemize{
+#'   \item{0.1.0 Xiurui Zhu - Initiate the function.}
+#' }
+#' @author Xiurui Zhu
+#'
+#' @export
+#'
+#' @examples
+#' fun_text <- '
+#' #\' This is a `r nrow(iris)`-row matrix.
+#' #\'
+#' #\' This matrix has
+#' #\' ```{r results="hold"}
+#' #\' ncol(iris)
+#' #\' ```
+#' #\' columns.
+#' my_fun <- function() iris
+#' '
+#' roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
+roc_eval_text <- function(roclet, input) {
+  fun_text <- input
+  # Evaluate inline code
+  extract_pattern <- "`r .*?`"
+  replace_pattern <- "`r (.*)`"
+  fun_text_eval_inline <- fun_text %>%
+    stringr::str_extract_all(extract_pattern) %>%
+    purrr::pluck(1L) %>%
+    purrr::map_chr(~ {
+      .x %>%
+        stringr::str_replace(replace_pattern, "\\1") %>%
+        str2lang() %>%
+        eval()
+    })
+  # Replace inline code results
+  fun_text <- purrr::reduce(
+    .x = fun_text_eval_inline,
+    .f = function(text, replacement) {
+      stringr::str_replace(
+        text,
+        extract_pattern,
+        # Add roxygen comment header (with regex escape)
+        .add_roxy_header(replacement)
+      )
+    },
+    .init = fun_text
+  )
+  # Evaluate block code
+  extract_pattern <- stringr::regex("`{3,}.*\\{r.*\\}.*?`{3,}",
+                                    multiline = TRUE,
+                                    dotall = TRUE)
+  replace_pattern <- stringr::regex("`{3,}.*\\{r.*\\}(.*)`{3,}",
+                                    multiline = TRUE,
+                                    dotall = TRUE)
+  fun_text_eval_block <- fun_text %>%
+    stringr::str_extract_all(extract_pattern) %>%
+    purrr::pluck(1L) %>%
+    purrr::map_chr(~ {
+      .x %>%
+        stringr::str_replace(replace_pattern, "\\1") %>%
+        # Remove roxygen comment headers from new lines
+        .remove_roxy_header() %>%
+        str2lang() %>%
+        eval()
+    })
+  # Replace inline code results
+  fun_text <- purrr::reduce(
+    .x = fun_text_eval_block,
+    .f = function(text, replacement) {
+      stringr::str_replace(
+        text,
+        extract_pattern,
+        # Add roxygen comment header (with regex escape)
+        .add_roxy_header(replacement)
+      )
+    },
+    .init = fun_text
+  )
+  roxygen2::roc_proc_text(roxygen2::rd_roclet(), fun_text)
+}
+
+#' Add roxygen2 header to a multi-line text
+#'
+#' @importFrom rex escape
+#'
+#' @inheritParams roc_eval_text
+#'
+#' @noRd
+.add_roxy_header <- function(input) {
+  # Get roxygen comment header
+  roxy_comment <- .get_roxy_header()
+  input %>%
+    stringr::str_replace_all(paste0("\n(?<!", rex::escape(roxy_comment), ")"),
+                             paste0("\n", rex::escape(roxy_comment)))
+}
+
+#' Add roxygen2 header to a multi-line text
+#'
+#' @importFrom rex escape
+#'
+#' @inheritParams roc_eval_text
+#'
+#' @noRd
+.remove_roxy_header <- function(input) {
+  # Get roxygen comment header
+  roxy_comment <- .get_roxy_header()
+  input %>%
+    stringr::str_replace_all(paste0("\n", rex::escape(roxy_comment)), "\n") %>%
+    stringr::str_replace(paste0("^", rex::escape(roxy_comment)), "") %>%
+    stringr::str_replace(paste0(rex::escape(roxy_comment), "$"), "")
+}
+
+#' Get roxygen2 header to a multi-line text
+#'
+#' @noRd
+.get_roxy_header <- function() {
+  roxy_comment <- options("roxygen.comment") %>%
+    purrr::pluck(1L)
+  if (is.null(roxy_comment) == TRUE) {
+    roxy_comment <- "#' "
+  }
+  roxy_comment
+}
