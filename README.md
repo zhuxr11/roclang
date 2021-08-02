@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# roclang
+# Diffusing roxygen documentation content with roclang
 
 <!-- badges: start -->
 
@@ -11,23 +11,29 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
-The goal of roclang is to diffuse content to facilitate more efficient
-programming. But unlike rlang, which works on diffusing R code, roclang
-works on diffusing roxygen2 documentations. Sections, parameters or dot
-parameters are extracted from function documentations and turned into
-valid Rd character strings, which are ready to diffuse into the roxygen2
-documentation of another function by inserting inline code.
+**Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
+2021-08-03 01:17:04<br /> **Compiled**: 2021-08-03 01:17:12
+
+The goal of `roclang` is to diffuse documentation content to facilitate
+more efficient programming. As a partner of
+[`rlang`](https://github.com/r-lib/rlang/), which works on diffusing R
+code, `roclang` works on diffusing
+[roxygen](https://github.com/r-lib/roxygen2/) documentations. Sections,
+parameters or dot parameters are extracted from function documentations
+and turned into valid Rd character strings, which are ready to diffuse
+into the roxygen documentation of another function by inserting inline
+code.
 
 ## Installation
 
 You can install the released version of roclang from
-[bitbucket](https://CRAN.R-project.org) with:
+[github](https://github.com/zhuxr11/roclang) with:
 
 ``` r
-remotes::install_bitbucket("mprobe_xiurui/roclang")
+remotes::install_github("zhuxr11/roclang")
 ```
 
-## Examples of extracting and diffusing content from other functions’ documentions
+## Examples of diffusing content from other functions’ documentions
 
 These are some basic examples which show you how to diffuse sections
 (both general and self-defined) or parameters (including dot-parameters)
@@ -128,9 +134,9 @@ paste0(
 #>   }
 ```
 
-## Examples of use in roxygen2 comments
+## Use cases in roxygen comments
 
-In `roxygen2` comments, one can use inline code to diffuse the extracted
+In roxygen comments, one can use inline code to diffuse the extracted
 contents into his or her own documentations:
 
 ``` r
@@ -335,4 +341,48 @@ roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 #> }
 #> ### less simple examples in "See Also" above
 #> }
+```
+
+## Further possibilities
+
+Since `roclang` returns Rd text, which is by nature character, more *ad
+hoc* manipulations can be performed in the inline code using functions
+such as those from `stringr` package. This makes `roclang` even more
+flexible in diffusing roxygen documentation content.
+
+## Session info
+
+This file is compiled with the following packages and versions:
+
+``` r
+sessionInfo()
+#> R version 4.0.5 (2021-03-31)
+#> Platform: x86_64-w64-mingw32/x64 (64-bit)
+#> Running under: Windows 10 x64 (build 19042)
+#> 
+#> Matrix products: default
+#> 
+#> locale:
+#> [1] LC_COLLATE=Chinese (Simplified)_China.936 
+#> [2] LC_CTYPE=Chinese (Simplified)_China.936   
+#> [3] LC_MONETARY=Chinese (Simplified)_China.936
+#> [4] LC_NUMERIC=C                              
+#> [5] LC_TIME=Chinese (Simplified)_China.936    
+#> 
+#> attached base packages:
+#> [1] stats     graphics  grDevices utils     datasets  methods   base     
+#> 
+#> other attached packages:
+#> [1] roxygen2_7.1.1 magrittr_2.0.1 roclang_0.1.0 
+#> 
+#> loaded via a namespace (and not attached):
+#>  [1] Rcpp_1.0.5       rex_1.2.0        xml2_1.3.2       knitr_1.29      
+#>  [5] tidyselect_1.1.0 R6_2.4.1         rlang_0.4.10     fansi_0.4.2     
+#>  [9] blob_1.2.1       stringr_1.4.0    dplyr_1.0.7      tools_4.0.5     
+#> [13] xfun_0.15        utf8_1.1.4       DBI_1.1.0        htmltools_0.5.0 
+#> [17] ellipsis_0.3.2   assertthat_0.2.1 yaml_2.2.1       digest_0.6.25   
+#> [21] tibble_3.1.3     lifecycle_1.0.0  crayon_1.3.4     tidyr_1.1.3     
+#> [25] purrr_0.3.4      vctrs_0.3.8      glue_1.4.1       evaluate_0.14   
+#> [29] rmarkdown_2.3    stringi_1.4.6    compiler_4.0.5   pillar_1.6.2    
+#> [33] generics_0.0.2   pkgconfig_2.0.3
 ```

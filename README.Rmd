@@ -13,24 +13,29 @@ knitr::opts_chunk$set(
 )
 ```
 
-# roclang
+# Diffusing roxygen documentation content with roclang
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
-The goal of roclang is to diffuse content to facilitate more efficient programming. But unlike rlang, which works on diffusing R code, roclang works on diffusing roxygen2 documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the roxygen2 documentation of another function by inserting inline code.
+**Package**: `r "roclang"`<br />
+**Authors**: Xiurui Zhu<br />
+**Modified**: `r file.info("README.Rmd")$mtime`<br />
+**Compiled**: `r Sys.time()`
+
+The goal of `roclang` is to diffuse documentation content to facilitate more efficient programming. As a partner of [`rlang`](https://github.com/r-lib/rlang/), which works on diffusing R code, `roclang` works on diffusing [roxygen](https://github.com/r-lib/roxygen2/) documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the roxygen documentation of another function by inserting inline code.
 
 ## Installation
 
-You can install the released version of roclang from [bitbucket](https://CRAN.R-project.org) with:
+You can install the released version of roclang from [github](https://github.com/zhuxr11/roclang) with:
 
 ``` r
-remotes::install_bitbucket("mprobe_xiurui/roclang")
+remotes::install_github("zhuxr11/roclang")
 ```
 
-## Examples of extracting and diffusing content from other functions' documentions
+## Examples of diffusing content from other functions' documentions
 
 These are some basic examples which show you how to diffuse sections (both general and self-defined) or parameters (including dot-parameters) from the documentation of another function, e.g. `stats::lm`:
 
@@ -60,11 +65,11 @@ paste0(
   cat()
 ```
 
-## Examples of use in roxygen2 comments
+## Use cases in roxygen comments
 
-In `roxygen2` comments, one can use inline code to diffuse the extracted contents into his or her own documentations:
+In roxygen comments, one can use inline code to diffuse the extracted contents into his or her own documentations:
 
-```{r example-roxygen2-code}
+```{r example-roxygen-code}
 #' Cited Version of \code{stats::lm} for
 #' `r roclang::extract_roc_text(stats::lm, type = "general", select = "title", capitalize = TRUE)`
 #'
@@ -92,7 +97,7 @@ lm_copy <- function(formula, df, lm_arg) {
 
 To view the compiled Rd file, use `roc_eval_text()` function as an improved version of `roxygen::roc_proc_text()` function, in that the former further evaluates inline code and code blocks before parsing the text into Rd.
 
-```{r example-roxygen2-compile}
+```{r example-roxygen-compile}
 library(roxygen2)
 library(magrittr)
 fun_text <- '
@@ -121,4 +126,16 @@ lm_copy <- function(formula, df, lm_arg) {
 }
 '
 roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
+```
+
+## Further possibilities
+
+Since `roclang` returns Rd text, which is by nature character, more *ad hoc* manipulations can be performed in the inline code using functions such as those from `stringr` package. This makes `roclang` even more flexible in diffusing roxygen documentation content.
+
+## Session info
+
+This file is compiled with the following packages and versions:
+
+```{r session-info}
+sessionInfo()
 ```
