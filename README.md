@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 <!-- badges: end -->
 
 **Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 01:28:34<br /> **Compiled**: 2021-08-03 01:28:38
+2021-08-03 09:14:18<br /> **Compiled**: 2021-08-03 09:14:25
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -33,7 +33,7 @@ You can install the released version of roclang from
 remotes::install_github("zhuxr11/roclang")
 ```
 
-## Examples of diffusing content from other functions’ documentions
+## Examples of diffusing content from other functions’ documentations
 
 These are some basic examples which show you how to diffuse sections
 (both general and self-defined) or parameters (including dot-parameters)

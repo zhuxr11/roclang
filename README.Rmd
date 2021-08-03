@@ -35,7 +35,7 @@ You can install the released version of roclang from [github](https://github.com
 remotes::install_github("zhuxr11/roclang")
 ```
 
-## Examples of diffusing content from other functions' documentions
+## Examples of diffusing content from other functions' documentations
 
 These are some basic examples which show you how to diffuse sections (both general and self-defined) or parameters (including dot-parameters) from the documentation of another function, e.g. `stats::lm`:
 
