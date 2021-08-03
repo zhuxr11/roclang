@@ -12,7 +12,8 @@ roc_eval_text(roclet, input)
 \item{input}{Source string}
 }
 \value{
-Same as \code{\link[roxygen2]{roc_proc_text}}.
+List with names as \code{fun_name.Rd}, where each element is the Rd text for
+the corresponding function, same as \code{\link[roxygen2]{roc_proc_text}}.
 }
 \description{
 \code{roc_eval_text} is an upgraded version of \code{\link[roxygen2]{roc_proc_text}}
@@ -25,6 +26,7 @@ Change log:
 }
 }
 \examples{
+# Formulate a text version of a function with documentation
 fun_text <- '
 #\' \\\\code{iris} is a `r nrow(iris)`-row matrix.
 #\'
@@ -35,6 +37,8 @@ fun_text <- '
 #\' columns.
 print_iris <- function() iris
 '
+
+# Parse the roxygen comments to Rd documentation
 roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 }
 \author{

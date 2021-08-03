@@ -46,15 +46,7 @@ NULL
 #'
 #' @export
 #'
-#' @examples
-#' # Inherit a standard section
-#' extract_roc_text(stats::lm, type = "general", select = "description", capitalize = FALSE)
-#' # Inherit a self-defined section named "Using time series"
-#' extract_roc_text(stats::lm, type = "section", select = "Using time series", capitalize = FALSE)
-#' # Inherit a parameter
-#' extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = FALSE)
-#' # Inherit a set of dot params
-#' extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)
+#' @example man-roxygen/ex-extract_roc_text.R
 extract_roc_text <- function(
   fun,
   type = c("general", "section", "param", "dot_params"),
@@ -224,7 +216,8 @@ extract_roc_text <- function(
 #'
 #' @inheritParams roxygen2::roc_proc_text
 #'
-#' @return Same as \code{\link[roxygen2]{roc_proc_text}}.
+#' @return List with names as \code{fun_name.Rd}, where each element is the Rd text for
+#' the corresponding function, same as \code{\link[roxygen2]{roc_proc_text}}.
 #'
 #' @note Change log:
 #' \itemize{
@@ -234,18 +227,7 @@ extract_roc_text <- function(
 #'
 #' @export
 #'
-#' @examples
-#' fun_text <- '
-#' #\' \\code{iris} is a `r nrow(iris)`-row matrix.
-#' #\'
-#' #\' \\code{iris} matrix has
-#' #\' ```{r results="hold"}
-#' #\' ncol(iris)
-#' #\' ```
-#' #\' columns.
-#' print_iris <- function() iris
-#' '
-#' roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
+#' @example man-roxygen/ex-roc_eval_text.R
 roc_eval_text <- function(roclet, input) {
   fun_text <- input
   fun_text <- fun_text %>%
