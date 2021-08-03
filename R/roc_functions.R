@@ -6,8 +6,10 @@ NULL
 #'
 #' \code{extract_roc_text} cites sections or parameters from a function documentation
 #' in the syntax of \code{@inherit}, \code{@inheritSection}, \code{@inheritParams} or \code{@inheritDotParams} tag
-#' from \code{\link[roxygen2]{rxoygen2}} package. See details about how to use this function.
+#' from \code{\link[roxygen2]{roxygen2}} package. See details about how to use this function.
 #'
+#' @importFrom methods formalArgs
+#' @importFrom rlang parse_expr
 #' @importFrom roxygen2 roc_proc_text rd_roclet
 #'
 #' @param fun Function or character indicating function name.
@@ -70,6 +72,8 @@ extract_roc_text <- function(
         stop("select should be length 1 for type = ", type)
       } else if (stringr::str_detect(select, " ") == TRUE) {
         stop("select should contain no spaces since only 1 is allowed for type = ", type)
+      } else if (identical(stringr::str_trim(select), "") == TRUE) {
+        stop("select should not be blank for type = ", type)
       } else {
         select
       }
@@ -86,6 +90,32 @@ extract_roc_text <- function(
     dot_params = paste(select, collapse = " "),
     stop("type not supported as: ", type)
   )
+  # Check whether the selected parameter is one of the formalArgs of fun
+  fun_function <- eval(rlang::parse_expr(fun))
+  if (type %in% "param" == TRUE) {
+    if (identical(select, "...") == TRUE) {
+      stop("cannot select '...' for type = 'param'; ",
+           "use type = 'dot_params' instead")
+    } else if (select %in% methods::formalArgs(fun_function) == FALSE) {
+      stop("select = ", select, " does not match any of methods::formalArgs(", fun, ")")
+    }
+  } else if (type %in% "dot_params" == TRUE) {
+    if (identical(select, "...") == TRUE) {
+      stop("cannot select '...' for type = 'dot_params'")
+    } else {
+      # Get positive selection(s)
+      select_pos <- select %>%
+        paste(collapse = " ") %>%
+        stringr::str_split(" ") %>%
+        purrr::pluck(1L) %>%
+        stringr::str_subset("^-", negate = TRUE)
+      select_pos_lgl <- select_pos %in% methods::formalArgs(fun_function)
+      if (any(select_pos_lgl == FALSE)) {
+        stop("select = c(\"", paste(select_pos[select_pos_lgl == FALSE], collapse = "\", \""),
+             "\") does not match any of methods::formalArgs(", fun, ")")
+      }
+    }
+  }
 
   # Format a Roxygen2 function blocks
   roxygen_fun_text <- .assemble_text_fun(fun = fun, type = type, select = select)
@@ -216,8 +246,8 @@ extract_roc_text <- function(
 #'
 #' @inheritParams roxygen2::roc_proc_text
 #'
-#' @return List with names as \code{fun_name.Rd}, where each element is the Rd text for
-#' the corresponding function, same as \code{\link[roxygen2]{roc_proc_text}}.
+#' @return List with names as \code{fun_name.Rd}, where each element is the \code{\link[roxygen2]{RoxyTopic}} for
+#' the corresponding function, same as the return of \code{\link[roxygen2]{roc_proc_text}}.
 #'
 #' @note Change log:
 #' \itemize{

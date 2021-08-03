@@ -12,8 +12,8 @@ roc_eval_text(roclet, input)
 \item{input}{Source string}
 }
 \value{
-List with names as \code{fun_name.Rd}, where each element is the Rd text for
-the corresponding function, same as \code{\link[roxygen2]{roc_proc_text}}.
+List with names as \code{fun_name.Rd}, where each element is the \code{\link[roxygen2]{RoxyTopic}} for
+the corresponding function, same as the return of \code{\link[roxygen2]{roc_proc_text}}.
 }
 \description{
 \code{roc_eval_text} is an upgraded version of \code{\link[roxygen2]{roc_proc_text}}

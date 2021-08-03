@@ -1,5 +1,5 @@
 Package: roclang
-Title: Helper Functions to Cite and Diffuse R Functions' Documentations
+Title: Functions for Diffusing Function Documentations into 'Roxygen' Comments
 Version: 0.1.0
 Authors@R: 
     person(given = "Xiurui",
@@ -7,15 +7,16 @@ Authors@R:
            role = c("aut", "cre"),
            email = "zxr6@163.com",
            comment = NULL)
-Description: roclang package, like rlang package, dedicates itself to diffusing content to facilitate more efficient programming. But unlike rlang, which works on diffusing R code, roclang works on diffusing roxygen2 documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the roxygen2 documentation of another function by inserting inline code. 
+Maintainer: Xiurui Zhu <zxr6@163.com>
+Description: Efficient diffusing of content across function documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the 'roxygen' comments of another function by inserting inline code. 
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Depends: R (>= 4.0.0)
 Imports: 
     dplyr (>= 1.0.2),
     tidyr (>= 1.1.2),
@@ -25,4 +26,7 @@ Imports:
     magrittr (>= 2.0.1),
     rlang (>= 0.4.10),
     roxygen2 (>= 7.1.1),
+    methods (>= 4.0.0),
     rex (>= 1.2.0)
+URL: https://github.com/zhuxr11/roclang
+BugReports: https://github.com/zhuxr11/roclang/issues

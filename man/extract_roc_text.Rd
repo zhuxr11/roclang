@@ -36,7 +36,7 @@ Character as valid Rd text to diffuse into \code{\link[roxygen2]{roxygen2}} comm
 \description{
 \code{extract_roc_text} cites sections or parameters from a function documentation
 in the syntax of \code{@inherit}, \code{@inheritSection}, \code{@inheritParams} or \code{@inheritDotParams} tag
-from \code{\link[roxygen2]{rxoygen2}} package. See details about how to use this function.
+from \code{\link[roxygen2]{roxygen2}} package. See details about how to use this function.
 }
 \details{
 To diffuse the function output into \code{\link[roxygen2]{roxygen2}} comments,
@@ -58,16 +58,29 @@ Change log:
 }
 \examples{
 # Inherit a standard section, and leave the first letter as is
-cat(extract_roc_text(stats::lm, type = "general", select = "description", capitalize = NA))
+cat(
+  extract_roc_text(stats::lm,
+                   type = "general",
+                   select = "description",
+                   capitalize = NA)
+)
 
 # Inherit a self-defined section, and capitalize the first letter
-cat(extract_roc_text(stats::lm, type = "section", select = "Using time series", capitalize = TRUE))
+cat(
+  extract_roc_text(stats::lm,
+                   type = "section",
+                   select = "Using time series",
+                   capitalize = TRUE)
+)
 
 # Inherit a parameter, and diffuse it into text
 cat(
   paste0(
     "Here is the `formula` argument of `stats::lm`, defined as: ",
-    extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = FALSE)
+    extract_roc_text(stats::lm,
+                     type = "param",
+                     select = "formula",
+                     capitalize = FALSE)
   )
 )
 
@@ -75,7 +88,10 @@ cat(
 cat(
   paste0(
     "`lm_arg` is a named list of ",
-    extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)
+    extract_roc_text(stats::lm,
+                     type = "dot_params",
+                     select = c("-formula", "-data"),
+                     capitalize = FALSE)
   )
 )
 }

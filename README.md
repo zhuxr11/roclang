@@ -6,13 +6,13 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
 **Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 09:52:36<br /> **Compiled**: 2021-08-03 09:52:43
+2021-08-03 12:36:36<br /> **Compiled**: 2021-08-03 14:24:58
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -351,11 +351,13 @@ roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 
 ## Further possibilities
 
-Since `roclang` returns Rd text, which is by nature character, more *ad
-hoc* manipulations can be performed in the inline code using functions
-such as those from [`stringr`](https://github.com/tidyverse/stringr)
-package. This makes `roclang` even more flexible in diffusing roxygen
-documentation content.
+Since `extract_roc_text()` returns Rd text, which is by nature of type
+“character”, more *ad hoc* manipulations can be performed in the
+inline code using functions such as those from
+[`stringr`](https://github.com/tidyverse/stringr) package. This makes
+`roclang` even more flexible in diffusing roxygen documentation content.
+With all manipulations settled, run `roc_eval_text()` to parse the
+roxygen comments into Rd.
 
 ## Session info
 
