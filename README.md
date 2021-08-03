@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 <!-- badges: end -->
 
 **Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 09:14:18<br /> **Compiled**: 2021-08-03 09:14:25
+2021-08-03 09:52:36<br /> **Compiled**: 2021-08-03 09:52:43
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -41,10 +41,9 @@ from the documentation of another function, e.g. `stats::lm`:
 
 ``` r
 library(roclang)
-library(magrittr)
+
 # Inherit a standard section, and leave the first letter as is
-extract_roc_text(stats::lm, type = "general", select = "description", capitalize = NA) %>%
-  cat()
+cat(extract_roc_text(stats::lm, type = "general", select = "description", capitalize = NA))
 #> \code{lm} is used to fit linear models.
 #>   It can be used to carry out regression,
 #>   single stratum analysis of variance and
@@ -52,8 +51,7 @@ extract_roc_text(stats::lm, type = "general", select = "description", capitalize
 #>   convenient interface for these).
 
 # Inherit a self-defined section, and capitalize the first letter
-extract_roc_text(stats::lm, type = "section", select = "Using time series", capitalize = TRUE) %>%
-  cat()
+cat(extract_roc_text(stats::lm, type = "section", select = "Using time series", capitalize = TRUE))
 #> Considerable care is needed when using \code{lm} with time series.
 #> 
 #>   Unless \code{na.action = NULL}, the time series attributes are
@@ -71,22 +69,24 @@ extract_roc_text(stats::lm, type = "section", select = "Using time series", capi
 #>   values are time series.
 
 # Inherit a parameter, and diffuse it into text
-paste0(
-  "Here is the `formula` argument of `stats::lm`, defined as: ",
-  extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = FALSE)
-) %>%
-  cat()
+cat(
+  paste0(
+    "Here is the `formula` argument of `stats::lm`, defined as: ",
+    extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = FALSE)
+  )
+)
 #> Here is the `formula` argument of `stats::lm`, defined as: an object of class \code{"\link[stats]{formula}"} (or one that
 #>     can be coerced to that class): a symbolic description of the
 #>     model to be fitted.  The details of model specification are given
 #>     under \sQuote{Details}.
 
 # Inherit a set of dot params, and diffuse it into text
-paste0(
-  "`lm_arg` is a named list of ",
-  extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)
-) %>%
-  cat()
+cat(
+  paste0(
+    "`lm_arg` is a named list of ",
+    extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)
+  )
+)
 #> `lm_arg` is a named list of arguments passed on to \code{\link[stats:lm]{stats::lm}}
 #>   \describe{
 #>     \item{\code{subset}}{an optional vector specifying a subset of observations
@@ -146,6 +146,9 @@ contents into his or her own documentations:
 #' Cited from \code{\link[stats]{lm}}:
 #' `r roclang::extract_roc_text(stats::lm, type = "general", select = "description", capitalize = FALSE)`
 #'
+#' @importFrom stats lm
+#' @importFrom rlang exec !!!
+#'
 #' @param formula Cited from \code{\link[stats]{lm}} with the same argument ame:
 #' `r roclang::extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = NA)`
 #' @param df Cited from the argument `data` of \code{\link[stats]{lm}}:
@@ -160,24 +163,27 @@ contents into his or her own documentations:
 #' @examples
 #' `r roclang::extract_roc_text(stats::lm, type = "general", select = "examples", capitalize = NA)`
 lm_copy <- function(formula, df, lm_arg) {
-  library(rlang)
   rlang::exec(stats::lm, formula = formula, data = df, !!!lm_arg)
 }
 ```
 
 To view the compiled Rd file, use `roc_eval_text()` function as an
-improved version of `roxygen::roc_proc_text()` function, in that the
-former further evaluates inline code and code blocks before parsing the
-text into Rd.
+improved version of
+[`roxygen2::roc_proc_text()`](https://roxygen2.r-lib.org/reference/roc_proc_text.html)
+function, in that the former further evaluates inline code and code
+blocks before parsing the text into Rd.
 
 ``` r
-library(magrittr)
+# Formulate a text version of the function with documentation
 fun_text <- '
 #\' Cited Version of \\code{stats::lm} for
 #\' `r roclang::extract_roc_text(stats::lm, type = "general", select = "title", capitalize = TRUE)`
 #\'
 #\' Cited from \\code{\\link[stats]{lm}}:
 #\' `r roclang::extract_roc_text(stats::lm, type = "general", select = "description", capitalize = TRUE)`
+#\'
+#\' @importFrom stats lm
+#\' @importFrom rlang exec !!!
 #\'
 #\' @param formula Cited from \\code{\\link[stats]{lm}} with the same argument name:
 #\' `r roclang::extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = NA)`
@@ -193,10 +199,11 @@ fun_text <- '
 #\' @examples
 #\' `r roclang::extract_roc_text(stats::lm, type = "general", select = "examples", capitalize = NA)`
 lm_copy <- function(formula, df, lm_arg) {
-  library(rlang)
   rlang::exec(stats::lm, formula = formula, data = df, !!!lm_arg)
 }
 '
+
+# Parse the roxygen comments to Rd documentation
 roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 #> % Generated by roxygen2: do not edit by hand
 #> % Please edit documentation in ./<text>
@@ -346,15 +353,16 @@ roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 
 Since `roclang` returns Rd text, which is by nature character, more *ad
 hoc* manipulations can be performed in the inline code using functions
-such as those from `stringr` package. This makes `roclang` even more
-flexible in diffusing roxygen documentation content.
+such as those from [`stringr`](https://github.com/tidyverse/stringr)
+package. This makes `roclang` even more flexible in diffusing roxygen
+documentation content.
 
 ## Session info
 
 This file is compiled with the following packages and versions:
 
 ``` r
-sessionInfo()
+utils::sessionInfo()
 #> R version 4.0.5 (2021-03-31)
 #> Platform: x86_64-w64-mingw32/x64 (64-bit)
 #> Running under: Windows 10 x64 (build 19042)
@@ -372,16 +380,16 @@ sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] magrittr_2.0.1 roclang_0.1.0 
+#> [1] roclang_0.1.0
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] Rcpp_1.0.5       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
-#>  [5] knitr_1.29       tidyselect_1.1.0 R6_2.4.1         rlang_0.4.10    
-#>  [9] fansi_0.4.2      blob_1.2.1       stringr_1.4.0    dplyr_1.0.7     
-#> [13] tools_4.0.5      xfun_0.15        utf8_1.1.4       DBI_1.1.0       
-#> [17] htmltools_0.5.0  ellipsis_0.3.2   assertthat_0.2.1 yaml_2.2.1      
-#> [21] digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0  crayon_1.3.4    
-#> [25] tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8      glue_1.4.1      
-#> [29] evaluate_0.14    rmarkdown_2.3    stringi_1.4.6    compiler_4.0.5  
-#> [33] pillar_1.6.2     generics_0.0.2   pkgconfig_2.0.3
+#>  [5] knitr_1.29       magrittr_2.0.1   tidyselect_1.1.0 R6_2.4.1        
+#>  [9] rlang_0.4.10     fansi_0.4.2      blob_1.2.1       stringr_1.4.0   
+#> [13] dplyr_1.0.7      tools_4.0.5      xfun_0.15        utf8_1.1.4      
+#> [17] DBI_1.1.0        htmltools_0.5.0  ellipsis_0.3.2   assertthat_0.2.1
+#> [21] yaml_2.2.1       digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0 
+#> [25] crayon_1.3.4     tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8     
+#> [29] glue_1.4.1       evaluate_0.14    rmarkdown_2.3    stringi_1.4.6   
+#> [33] compiler_4.0.5   pillar_1.6.2     generics_0.0.2   pkgconfig_2.0.3
 ```
