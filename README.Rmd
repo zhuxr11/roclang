@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # Diffusing roxygen documentation content with roclang
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Lifecycle: stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 

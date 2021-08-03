@@ -6,13 +6,13 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
 **Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 15:18:36<br /> **Compiled**: 2021-08-03 15:18:41
+2021-08-03 15:25:56<br /> **Compiled**: 2021-08-03 15:26:35
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
