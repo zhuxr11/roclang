@@ -123,22 +123,14 @@ extract_roc_text <- function(
   roxygen_extract_text <- switch(
     type,
     general = ,
-    param = roxygen_extract_text %>%
+    param = ,
+    dot_params = roxygen_extract_text %>%
       stringr::str_trim(),
     section = {
       roxygen_extract_text %>%
         str2lang() %>%
         eval() %>%
         purrr::pluck("content") %>%
-        stringr::str_trim()
-    },
-    dot_params = {
-      roxygen_extract_text %>%
-        stringr::str_extract(
-          stringr::regex("Arguments passed on to .*",
-                         multiline = TRUE,
-                         dotall = TRUE)
-        ) %>%
         stringr::str_trim()
     },
     stop("type not supported as: ", type)
