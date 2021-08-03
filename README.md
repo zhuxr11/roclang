@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 <!-- badges: end -->
 
 **Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 12:36:36<br /> **Compiled**: 2021-08-03 14:24:58
+2021-08-03 15:18:36<br /> **Compiled**: 2021-08-03 15:18:41
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -43,7 +43,12 @@ from the documentation of another function, e.g. `stats::lm`:
 library(roclang)
 
 # Inherit a standard section, and leave the first letter as is
-cat(extract_roc_text(stats::lm, type = "general", select = "description", capitalize = NA))
+cat(
+  extract_roc_text(stats::lm,
+                   type = "general",
+                   select = "description",
+                   capitalize = NA)
+)
 #> \code{lm} is used to fit linear models.
 #>   It can be used to carry out regression,
 #>   single stratum analysis of variance and
@@ -51,7 +56,12 @@ cat(extract_roc_text(stats::lm, type = "general", select = "description", capita
 #>   convenient interface for these).
 
 # Inherit a self-defined section, and capitalize the first letter
-cat(extract_roc_text(stats::lm, type = "section", select = "Using time series", capitalize = TRUE))
+cat(
+  extract_roc_text(stats::lm,
+                   type = "section",
+                   select = "Using time series",
+                   capitalize = TRUE)
+)
 #> Considerable care is needed when using \code{lm} with time series.
 #> 
 #>   Unless \code{na.action = NULL}, the time series attributes are
@@ -72,7 +82,10 @@ cat(extract_roc_text(stats::lm, type = "section", select = "Using time series", 
 cat(
   paste0(
     "Here is the `formula` argument of `stats::lm`, defined as: ",
-    extract_roc_text(stats::lm, type = "param", select = "formula", capitalize = FALSE)
+    extract_roc_text(stats::lm,
+                     type = "param",
+                     select = "formula",
+                     capitalize = FALSE)
   )
 )
 #> Here is the `formula` argument of `stats::lm`, defined as: an object of class \code{"\link[stats]{formula}"} (or one that
@@ -84,7 +97,10 @@ cat(
 cat(
   paste0(
     "`lm_arg` is a named list of ",
-    extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)
+    extract_roc_text(stats::lm,
+                     type = "dot_params",
+                     select = c("-formula", "-data"),
+                     capitalize = FALSE)
   )
 )
 #> `lm_arg` is a named list of arguments passed on to \code{\link[stats:lm]{stats::lm}}
