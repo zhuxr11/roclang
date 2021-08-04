@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Diffusing roxygen documentation content with roclang
+# Diffusing 'roxygen' documentation content with roclang
 
 <!-- badges: start -->
 [![Lifecycle: stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 **Modified**: `r file.info("README.Rmd")$mtime`<br />
 **Compiled**: `r Sys.time()`
 
-The goal of `roclang` is to diffuse documentation content to facilitate more efficient programming. As a partner of [`rlang`](https://github.com/r-lib/rlang/), which works on diffusing R code, `roclang` works on diffusing [roxygen](https://github.com/r-lib/roxygen2/) documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the roxygen documentation of another function by inserting inline code.
+The goal of `roclang` is to diffuse documentation content to facilitate more efficient programming. As a partner of [`rlang`](https://github.com/r-lib/rlang/), which works on diffusing R code, `roclang` works on diffusing ['roxygen'](https://github.com/r-lib/roxygen2/) documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the 'roxygen' documentation of another function by inserting inline code.
 
 ## Installation
 
@@ -81,9 +81,9 @@ cat(
 )
 ```
 
-## Use cases in roxygen comments
+## Use cases in 'roxygen' comments
 
-In roxygen comments, one can use inline code to diffuse the extracted contents into his or her own documentations:
+In 'roxygen' comments, one can use inline code to diffuse the extracted content into his or her own documentations:
 
 ```{r example-roxygen-code}
 #' Cited Version of \code{stats::lm} for
@@ -145,13 +145,13 @@ lm_copy <- function(formula, df, lm_arg) {
 }
 '
 
-# Parse the roxygen comments to Rd documentation
+# Parse the 'roxygen' comments to Rd documentation
 roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 ```
 
 ## Further possibilities
 
-Since `extract_roc_text()` returns Rd character strings, more *ad hoc* manipulations can be performed in the inline code using functions such as those from [`stringr`](https://github.com/tidyverse/stringr) package. This makes `roclang` even more flexible in diffusing roxygen documentation content. With all manipulations settled, run `roc_eval_text()` to parse the roxygen comments into Rd.
+Since `extract_roc_text()` returns Rd character strings, more *ad hoc* manipulations can be performed in the inline code using functions such as those from [`stringr`](https://github.com/tidyverse/stringr) package. This makes `roclang` even more flexible in diffusing 'roxygen' documentation content. With all manipulations settled, run `roc_eval_text()` to parse the 'roxygen' comments into Rd.
 
 ## Session info
 
