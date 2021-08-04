@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 <!-- badges: end -->
 
 **Package**: roclang<br /> **Authors**: Xiurui Zhu<br /> **Modified**:
-2021-08-03 15:25:56<br /> **Compiled**: 2021-08-03 15:26:35
+2021-08-04 18:01:29<br /> **Compiled**: 2021-08-04 18:12:58
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -367,13 +367,12 @@ roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 
 ## Further possibilities
 
-Since `extract_roc_text()` returns Rd text, which is by nature of type
-“character”, more *ad hoc* manipulations can be performed in the
-inline code using functions such as those from
-[`stringr`](https://github.com/tidyverse/stringr) package. This makes
-`roclang` even more flexible in diffusing roxygen documentation content.
-With all manipulations settled, run `roc_eval_text()` to parse the
-roxygen comments into Rd.
+Since `extract_roc_text()` returns Rd character strings, more *ad hoc*
+manipulations can be performed in the inline code using functions such
+as those from [`stringr`](https://github.com/tidyverse/stringr) package.
+This makes `roclang` even more flexible in diffusing roxygen
+documentation content. With all manipulations settled, run
+`roc_eval_text()` to parse the roxygen comments into Rd.
 
 ## Session info
 
