@@ -38,7 +38,7 @@ fun_text <- '
 print_iris <- function() iris
 '
 
-# Parse the roxygen comments to Rd documentation
+# Parse the 'roxygen' comments to Rd documentation
 roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 }
 \author{

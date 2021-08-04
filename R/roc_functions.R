@@ -272,7 +272,7 @@ roc_eval_text <- function(roclet, input) {
   roxygen2::roc_proc_text(roxygen2::rd_roclet(), fun_text)
 }
 
-#' Add roxygen2 header to a multi-line text
+#' Add 'roxygen' comment header to a multi-line text
 #'
 #' @importFrom rex escape
 #'
@@ -280,14 +280,14 @@ roc_eval_text <- function(roclet, input) {
 #'
 #' @noRd
 .add_roxy_header <- function(input) {
-  # Get roxygen comment header
+  # Get 'roxygen' comment header
   roxy_comment <- .get_roxy_header()
   input %>%
     stringr::str_replace_all(paste0("\n(?<!", rex::escape(roxy_comment), ")"),
                              paste0("\n", rex::escape(roxy_comment)))
 }
 
-#' Add roxygen2 header to a multi-line text
+#' Remove 'roxygen' comment header to a multi-line text
 #'
 #' @importFrom rex escape
 #'
@@ -295,7 +295,7 @@ roc_eval_text <- function(roclet, input) {
 #'
 #' @noRd
 .remove_roxy_header <- function(input) {
-  # Get roxygen comment header
+  # Get 'roxygen' comment header
   roxy_comment <- .get_roxy_header()
   input %>%
     stringr::str_replace_all(paste0("\n", rex::escape(roxy_comment)), "\n") %>%
@@ -303,7 +303,7 @@ roc_eval_text <- function(roclet, input) {
     stringr::str_replace(paste0(rex::escape(roxy_comment), "$"), "")
 }
 
-#' Get roxygen2 header
+#' Get 'roxygen' comment header
 #'
 #' @noRd
 .get_roxy_header <- function() {
@@ -336,11 +336,11 @@ roc_eval_text <- function(roclet, input) {
       function(extract_text) {
         extract_text %>%
           stringr::str_replace(pattern, "\\1") %>%
-          # Remove roxygen comment headers from new lines
+          # Remove 'roxygen' comment headers from new lines
           .remove_roxy_header() %>%
           rlang::parse_expr() %>%
           eval() %>%
-          # Add roxygen comment headers to new lines
+          # Add 'roxygen' comment headers to new lines
           .add_roxy_header()
       }
     )

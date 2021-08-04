@@ -13,14 +13,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Diffusing 'roxygen' documentation content with roclang
+# Diffusing 'roxygen' documentation content with 'roclang'
 
 <!-- badges: start -->
 [![Lifecycle: stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
-**Package**: `r "roclang"`<br />
+**Package**: `r paste0("roclang (", utils::packageVersion("roclang"), ")")`<br />
 **Authors**: Xiurui Zhu<br />
 **Modified**: `r file.info("README.Rmd")$mtime`<br />
 **Compiled**: `r Sys.time()`
@@ -29,7 +29,13 @@ The goal of `roclang` is to diffuse documentation content to facilitate more eff
 
 ## Installation
 
-You can install the released version of roclang from [github](https://github.com/) with:
+You can install the released version of `roclang` from [CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("roclang")
+```
+
+Alternatively, you can install the developmental version of `roclang` from [github](https://github.com/) with:
 
 ``` r
 remotes::install_github("zhuxr11/roclang")
