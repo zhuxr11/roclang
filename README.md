@@ -11,9 +11,9 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
-**Package**: roclang (0.1.1)<br /> **Authors**: Xiurui Zhu<br />
-**Modified**: 2021-08-05 00:54:58<br /> **Compiled**: 2021-08-05
-00:59:39
+**Package**: [*roclang*](https://cran.r-project.org/package=roclang)
+0.1.1<br /> **Authors**: Xiurui Zhu<br /> **Modified**: 2021-08-05
+08:55:38<br /> **Compiled**: 2021-08-05 11:04:58
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of

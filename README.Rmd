@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
-**Package**: `r paste0("roclang (", utils::packageVersion("roclang"), ")")`<br />
+**Package**: [*roclang*](https://cran.r-project.org/package=roclang) `r utils::packageVersion("roclang")`<br />
 **Authors**: Xiurui Zhu<br />
 **Modified**: `r file.info("README.Rmd")$mtime`<br />
 **Compiled**: `r Sys.time()`
