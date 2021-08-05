@@ -53,23 +53,21 @@ one may write the function documentation with inline code like this:
 #'
 #' @return Same as \code{\link[stats]{lm}}:
 #' `r extract_roc_text(stats::lm, type = "general", select = "return")`
-#'
-my_fun <- function(lm_list) {}
+my_fun <- function() {}
 }
 
 or with code block like this:
 \preformatted{
 #' Diffusion of function documentation with code block
 #'
-#' @param lm_list Named list of
+#' @param lm_arg Named list of
 #' ```{r}
 #' extract_roc_text(stats::lm,
 #'                  type = "dot_params",
 #'                  select = c("-formula", "-data"),
 #'                  capitalize = FALSE)
 #' ```
-#'
-my_fun <- function(lm_list) {}
+my_fun <- function(lm_arg) {}
 }
 }
 \note{

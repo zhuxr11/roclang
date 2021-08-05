@@ -44,18 +44,16 @@ NULL
 #' #'
 #' #' @return Same as \code{\link[stats]{lm}}:
 #' #' `r '\u0060r extract_roc_text(stats::lm, type = "general", select = "return")\u0060'`
-#' #'
-#' my_fun <- function(lm_list) {}
+#' my_fun <- function() {}
 #' }
 #'
 #' or with code block like this:
 #' \preformatted{
 #' #' Diffusion of function documentation with code block
 #' #'
-#' #' @param lm_list Named list of
+#' #' @param lm_arg Named list of
 #' #' `r paste('\u0060\u0060\u0060{r}', 'extract_roc_text(stats::lm,', '                 type = "dot_params",', '                 select = c("-formula", "-data"),', '                 capitalize = FALSE)', '\u0060\u0060\u0060', sep = "\n#\' ")`
-#' #'
-#' my_fun <- function(lm_list) {}
+#' my_fun <- function(lm_arg) {}
 #' }
 #'
 #' @return Character (of length 1L) as a valid Rd character string to diffuse into \code{\link[roxygen2]{roxygen2}} comments.
