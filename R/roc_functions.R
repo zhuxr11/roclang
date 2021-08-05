@@ -9,36 +9,54 @@ NULL
 #' from \code{\link[roxygen2]{roxygen2}} package. See details about how to use this function.
 #'
 #' @importFrom methods formalArgs
-#' @importFrom rlang parse_expr
 #' @importFrom roxygen2 roc_proc_text rd_roclet
 #'
-#' @param fun Function or character indicating function name.
-#' @param type Type of extraction. If content is extracted by \code{@inherit} tags,
-#' set to \code{"general"}; if by \code{@inheritSection}, set to \code{section};
-#' if by \code{@inheritParams}, set to \code{param}; if by \code{@inheritDotParams},
-#' set to \code{"dot_params"}.
-#' @param select Selection of extraction.
-#' For \code{type = "general"}, character indicating the section to extract.
-#' For \code{type = "section"}, character indicating the section title to extract.
-#' For \code{type = "param"}, character indicating the name of parameter to extract.
-#' For \code{type = "dot_params"}, character or character vector to add or remove (with "-") parameters as \code{@inheritDotParams};
-#' if character vector provided, the elements are concatenated with spaces just as \code{@inheritDotParams} syntax.
-#' to inherit, e.g. \code{"x,y"} to inherit 2 parameters or \code{"-z"} to remove a parameter.
-#' @param capitalize Logical indicating whether the first letter of the return should be capitalized.
-#' If \code{capitalize = NA}, the return is left as is.
+#' @param fun Function or character (of length 1L) indicating function name.
+#' @param type Type of extraction. Please choose one from the following table
+#' according to the tag you would otherwise use if you would like to inherit
+#' the section, parameter or set of dot-parameters as a whole:
+#'
+#' | \code{@tag} you would use | \code{type} you should choose |
+#' | :-: | :-: |
+#' | \code{@inherit} | \code{"general"} |
+#' | \code{@inheritSection} | \code{"section"} |
+#' | \code{@inheritParams} | \code{"param"} |
+#' | \code{@inheritDotParams} | \code{"dot_params"} |
+#'
+#' @param select Selection of extraction based on \code{type}.
+#' \describe{
+#'   \item{\code{type = "general"}}{Character (of length 1L) indicating the section to extract}
+#'   \item{\code{type = "section"}}{Character (of length 1L) indicating the section title to extract}
+#'   \item{\code{type = "param"}}{Character (of length 1L) indicating the name of parameter to extract}
+#'   \item{\code{type = "dot_params"}}{Character (of length 1L) or character vector to add or remove (with "-") parameters as \code{@inheritDotParams};
+#'         if character vector provided, the elements are concatenated with spaces just as \code{@inheritDotParams} syntax,
+#'         e.g. \code{"x y"} to inherit two parameters, \code{"-z"} to remove a parameter or \code{c("-x", "-y")} to remove two parameters}
+#' }
+#' @param capitalize Logical (of length 1L) indicating whether the first letter of the return should be capitalized.
+#' Default to \code{capitalize = NA}, in which case the first letter of the return is left as is.
 #'
 #' @details To diffuse the function output into \code{\link[roxygen2]{roxygen2}} comments,
-#' one may write the function documentation like this:
+#' one may write the function documentation with inline code like this:
 #' \preformatted{
-#' #' Function documentation for the diffusion of parameter descriptions
+#' #' Diffusion of function documentation with inline code
 #' #'
-#' #' @param lm_list Named list of
-#' #' `r '\u0060r extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)\u0060'`
+#' #' @return Same as \code{\link[stats]{lm}}:
+#' #' `r '\u0060r extract_roc_text(stats::lm, type = "general", select = "return")\u0060'`
 #' #'
 #' my_fun <- function(lm_list) {}
 #' }
 #'
-#' @return Character as valid Rd text to diffuse into \code{\link[roxygen2]{roxygen2}} comments.
+#' or with code block like this:
+#' \preformatted{
+#' #' Diffusion of function documentation with code block
+#' #'
+#' #' @param lm_list Named list of
+#' #' `r paste('\u0060\u0060\u0060{r}', 'extract_roc_text(stats::lm,', '                 type = "dot_params",', '                 select = c("-formula", "-data"),', '                 capitalize = FALSE)', '\u0060\u0060\u0060', sep = "\n#\' ")`
+#' #'
+#' my_fun <- function(lm_list) {}
+#' }
+#'
+#' @return Character (of length 1L) as a valid Rd character string to diffuse into \code{\link[roxygen2]{roxygen2}} comments.
 #'
 #' @note Change log:
 #' \itemize{
@@ -53,13 +71,20 @@ extract_roc_text <- function(
   fun,
   type = c("general", "section", "param", "dot_params"),
   select = NULL,
-  capitalize = TRUE
+  capitalize = NA
 ) {
   if (is.function(fun) == TRUE) {
     # Turn function into its name (character)
     fun <- deparse(substitute(fun))
   } else {
-    stopifnot(is.character(fun) == TRUE)
+    if (is.character(fun) == FALSE) {
+      stop("fun should be a function or character indicating a function, ",
+           "e.g. stats::lm or 'stats::lm'")
+    } else {
+      if (length(fun) != 1L) {
+        stop("fun should be length 1L")
+      }
+    }
   }
   type <- match.arg(type)
   # Parse select according to type
@@ -69,7 +94,7 @@ extract_roc_text <- function(
     general = ,
     param =  {
       if (length(select) != 1L) {
-        stop("select should be length 1 for type = ", type)
+        stop("select should be length 1L for type = ", type)
       } else if (stringr::str_detect(select, " ") == TRUE) {
         stop("select should contain no spaces since only 1 is allowed for type = ", type)
       } else if (identical(stringr::str_trim(select), "") == TRUE) {
@@ -81,7 +106,7 @@ extract_roc_text <- function(
     # "section" only allow 1 selection (possibly with spaces)
     section = {
       if (length(select) != 1L) {
-        stop("select should be length 1 for type = ", type)
+        stop("select should be length 1L for type = ", type)
       } else {
         select
       }
@@ -91,7 +116,18 @@ extract_roc_text <- function(
     stop("type not supported as: ", type)
   )
   # Check whether the selected parameter is one of the formalArgs of fun
-  fun_function <- eval(rlang::parse_expr(fun))
+  fun_function <- stringr::str_split(fun, pattern = ":{2,3}", n = 2L)[[1L]]
+  if (length(fun_function) == 1L) {
+    fun_function <- get(fun_function[1L], mode = "function")
+  } else {
+    fun_function <- get(fun_function[2L],
+                        envir = asNamespace(fun_function[1L]),
+                        mode = "function")
+  }
+  if (is.function(fun_function) == FALSE) {
+    stop("fun should be a function or character indicating a function, ",
+         "e.g. stats::lm or 'stats::lm'")
+  }
   if (type %in% "param" == TRUE) {
     if (identical(select, "...") == TRUE) {
       stop("cannot select '...' for type = 'param'; ",
@@ -187,7 +223,7 @@ extract_roc_text <- function(
 #' Assemble text version of a function to process citation
 #'
 #' @inheritParams extract_roc_text
-#' @param new_fun Character as the assembled function name
+#' @param new_fun Character (of length 1L) as the assembled function name
 #'
 #' @noRd
 .assemble_text_fun <- function(fun, type, select, new_fun = "my_fun") {
@@ -320,7 +356,7 @@ roc_eval_text <- function(roclet, input) {
 #' @importFrom rlang parse_expr
 #'
 #' @inheritParams roc_eval_text
-#' @param pattern Regular expression that mark the pattern of code block.
+#' @param pattern Regular expression (of length 1L) that mark the pattern of code block.
 #' The code section should be only 1 and marked as "(.*?)".
 #' For example, inline \code{[code]} is of pattern: `r '\u0060r [code]\u0060'`,
 #' and then we can use \code{pattern = "`r '\u0060r (.*?)\u0060'`"}.

@@ -8,30 +8,37 @@ extract_roc_text(
   fun,
   type = c("general", "section", "param", "dot_params"),
   select = NULL,
-  capitalize = TRUE
+  capitalize = NA
 )
 }
 \arguments{
-\item{fun}{Function or character indicating function name.}
+\item{fun}{Function or character (of length 1L) indicating function name.}
 
-\item{type}{Type of extraction. If content is extracted by \code{@inherit} tags,
-set to \code{"general"}; if by \code{@inheritSection}, set to \code{section};
-if by \code{@inheritParams}, set to \code{param}; if by \code{@inheritDotParams},
-set to \code{"dot_params"}.}
+\item{type}{Type of extraction. Please choose one from the following table
+according to the tag you would otherwise use if you would like to inherit
+the section, parameter or set of dot-parameters as a whole:\tabular{cc}{
+   \code{@tag} you would use \tab \code{type} you should choose \cr
+   \code{@inherit} \tab \code{"general"} \cr
+   \code{@inheritSection} \tab \code{"section"} \cr
+   \code{@inheritParams} \tab \code{"param"} \cr
+   \code{@inheritDotParams} \tab \code{"dot_params"} \cr
+}}
 
-\item{select}{Selection of extraction.
-For \code{type = "general"}, character indicating the section to extract.
-For \code{type = "section"}, character indicating the section title to extract.
-For \code{type = "param"}, character indicating the name of parameter to extract.
-For \code{type = "dot_params"}, character or character vector to add or remove (with "-") parameters as \code{@inheritDotParams};
-if character vector provided, the elements are concatenated with spaces just as \code{@inheritDotParams} syntax.
-to inherit, e.g. \code{"x,y"} to inherit 2 parameters or \code{"-z"} to remove a parameter.}
+\item{select}{Selection of extraction based on \code{type}.
+\describe{
+\item{\code{type = "general"}}{Character (of length 1L) indicating the section to extract}
+\item{\code{type = "section"}}{Character (of length 1L) indicating the section title to extract}
+\item{\code{type = "param"}}{Character (of length 1L) indicating the name of parameter to extract}
+\item{\code{type = "dot_params"}}{Character (of length 1L) or character vector to add or remove (with "-") parameters as \code{@inheritDotParams};
+if character vector provided, the elements are concatenated with spaces just as \code{@inheritDotParams} syntax,
+e.g. \code{"x y"} to inherit two parameters, \code{"-z"} to remove a parameter or \code{c("-x", "-y")} to remove two parameters}
+}}
 
-\item{capitalize}{Logical indicating whether the first letter of the return should be capitalized.
-If \code{capitalize = NA}, the return is left as is.}
+\item{capitalize}{Logical (of length 1L) indicating whether the first letter of the return should be capitalized.
+Default to \code{capitalize = NA}, in which case the first letter of the return is left as is.}
 }
 \value{
-Character as valid Rd text to diffuse into \code{\link[roxygen2]{roxygen2}} comments.
+Character (of length 1L) as a valid Rd character string to diffuse into \code{\link[roxygen2]{roxygen2}} comments.
 }
 \description{
 \code{extract_roc_text} cites sections or parameters from a function documentation
@@ -40,12 +47,27 @@ from \code{\link[roxygen2]{roxygen2}} package. See details about how to use this
 }
 \details{
 To diffuse the function output into \code{\link[roxygen2]{roxygen2}} comments,
-one may write the function documentation like this:
+one may write the function documentation with inline code like this:
 \preformatted{
-#' Function documentation for the diffusion of parameter descriptions
+#' Diffusion of function documentation with inline code
+#'
+#' @return Same as \code{\link[stats]{lm}}:
+#' `r extract_roc_text(stats::lm, type = "general", select = "return")`
+#'
+my_fun <- function(lm_list) {}
+}
+
+or with code block like this:
+\preformatted{
+#' Diffusion of function documentation with code block
 #'
 #' @param lm_list Named list of
-#' `r extract_roc_text(stats::lm, type = "dot_params", select = c("-formula", "-data"), capitalize = FALSE)`
+#' ```{r}
+#' extract_roc_text(stats::lm,
+#'                  type = "dot_params",
+#'                  select = c("-formula", "-data"),
+#'                  capitalize = FALSE)
+#' ```
 #'
 my_fun <- function(lm_list) {}
 }
