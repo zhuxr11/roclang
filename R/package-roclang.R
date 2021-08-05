@@ -8,7 +8,13 @@
 #' * Text extraction and manipulation function: \code{\link{extract_roc_text}}.
 #' * Rd evaluation and compilation function: \code{\link{roc_eval_text}}.
 #'
+#' @note Change log:
+#' \itemize{
+#'   \item{0.1.1 Xiurui Zhu - Initiate the document.}
+#' }
+#' @author Xiurui Zhu
+#'
 #' @docType package
-#' @name roclang
-#' @aliases roclang-package
+#' @name roclang-package
+#' @aliases roclang
 NULL
