@@ -224,7 +224,7 @@ extract_roc_text <- function(
   roxygen_extract_text_capital
 }
 
-#' Assemble text version of a function to process citation
+#' Assemble text version of a function to process extraction
 #'
 #' @inheritParams extract_roc_text
 #' @param new_fun Character (of length 1L) as the assembled function name
