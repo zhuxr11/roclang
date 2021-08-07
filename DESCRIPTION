@@ -11,6 +11,7 @@ Maintainer: Xiurui Zhu <zxr6@163.com>
 Description: Efficient diffusing of content across function documentations. Sections, parameters or dot parameters are extracted from function documentations and turned into valid Rd character strings, which are ready to diffuse into the 'roxygen' comments of another function by inserting inline code. 
 License: MIT + file LICENSE
 Suggests: 
+    covr,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8

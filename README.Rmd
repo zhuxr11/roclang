@@ -16,8 +16,10 @@ knitr::opts_chunk$set(
 # Diffusing 'roxygen' documentation content with 'roclang'
 
 <!-- badges: start -->
-[![Lifecycle: stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
+[![R-CMD-check](https://github.com/zhuxr11/roclang/workflows/R-CMD-check/badge.svg)](https://github.com/zhuxr11/roclang/actions)
+[![Codecov test coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://codecov.io/gh/zhuxr11/roclang?branch=master)
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://cran.r-project.org/package=roclang) `r utils::packageVersion("roclang")`<br />

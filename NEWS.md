@@ -1,5 +1,10 @@
 # roclang 0.1.2
 
+## Enhancements:
+
+* Enforce R CMD check and code coverage workflows and add corresponding badges.
+
+
 # roclang 0.1.1
 
 ## Enhancements:
