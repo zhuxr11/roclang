@@ -15,8 +15,8 @@ coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://cran.r-project.org/package=roclang)
-0.1.1<br /> **Authors**: Xiurui Zhu<br /> **Modified**: 2021-08-07
-16:21:49<br /> **Compiled**: 2021-08-07 16:23:01
+0.1.2<br /> **Authors**: Xiurui Zhu<br /> **Modified**: 2021-08-07
+16:21:49<br /> **Compiled**: 2021-08-07 16:49:27
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -408,7 +408,7 @@ utils::sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] roclang_0.1.1
+#> [1] roclang_0.1.2
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] Rcpp_1.0.5       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
