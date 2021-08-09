@@ -28,6 +28,7 @@ Imports:
     rlang (>= 0.4.10),
     roxygen2 (>= 7.1.1),
     methods (>= 4.0.0),
+    utils (>= 4.0.0),
     rex (>= 1.2.0)
 URL: https://github.com/zhuxr11/roclang
 BugReports: https://github.com/zhuxr11/roclang/issues

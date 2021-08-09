@@ -11,6 +11,7 @@ NULL
 #' from \code{\link[roxygen2]{roxygen2}} package. See details about how to use this function.
 #'
 #' @importFrom methods formalArgs
+#' @importFrom utils find
 #' @importFrom roxygen2 roc_proc_text rd_roclet
 #'
 #' @param fun Function or character (of length 1L) indicating function name.
@@ -109,6 +110,8 @@ extract_roc_text <- function(
     section = {
       if (length(select) != 1L) {
         stop("select should be length 1L for type = ", type)
+      } else if (identical(stringr::str_trim(select), "") == TRUE) {
+        stop("select should not be blank for type = ", type)
       } else {
         select
       }
@@ -126,10 +129,6 @@ extract_roc_text <- function(
                         envir = asNamespace(fun_function[1L]),
                         mode = "function")
   }
-  if (is.function(fun_function) == FALSE) {
-    stop("fun should be a function or character indicating a function, ",
-         "e.g. stats::lm or 'stats::lm'")
-  }
   if (type %in% "param" == TRUE) {
     if (identical(select, "...") == TRUE) {
       stop("cannot select '...' for type = 'param'; ",
@@ -141,22 +140,41 @@ extract_roc_text <- function(
     if (identical(select, "...") == TRUE) {
       stop("cannot select '...' for type = 'dot_params'")
     } else {
-      # Get positive selection(s)
-      select_pos <- select %>%
-        paste(collapse = " ") %>%
-        stringr::str_split(" ") %>%
-        purrr::pluck(1L) %>%
-        stringr::str_subset("^-", negate = TRUE)
-      select_pos_lgl <- select_pos %in% methods::formalArgs(fun_function)
-      if (any(select_pos_lgl == FALSE)) {
-        stop("select = c(\"", paste(select_pos[select_pos_lgl == FALSE], collapse = "\", \""),
-             "\") does not match any of methods::formalArgs(", fun, ")")
+      # It is OK to use "" to select all arguments as dot parameters
+      if (identical(select, "") == FALSE) {
+        # Get positive selection(s)
+        select_pos <- select %>%
+          paste(collapse = " ") %>%
+          stringr::str_split(" ") %>%
+          purrr::pluck(1L) %>%
+          stringr::str_subset("^-", negate = TRUE)
+        select_pos_lgl <- select_pos %in% methods::formalArgs(fun_function)
+        if (any(select_pos_lgl == FALSE)) {
+          stop("select = c(\"", paste(select_pos[select_pos_lgl == FALSE], collapse = "\", \""),
+               "\") does not match any of methods::formalArgs(", fun, ")")
+        }
       }
     }
   }
 
   # Format a Roxygen2 function blocks
-  roxygen_fun_text <- .assemble_text_fun(fun = fun, type = type, select = select)
+  roxygen_fun_text <- .assemble_text_fun(
+    fun = if(stringr::str_detect(fun, ":{2,3}") == TRUE) {
+      fun
+    } else {
+      # Attach package name
+      fun_pgk_name <- utils::find(fun, mode = "function")
+      if (stringr::str_detect(fun_pgk_name, "^package:") == TRUE) {
+        fun_pgk_name <- stringr::str_replace(fun_pgk_name, "^package:", "")
+        paste(fun_pgk_name, fun, sep = "::")
+      } else {
+        stop("Function ", fun, " should live in a package to get its documentation; ",
+             "now its environment is: ", fun_pgk_name)
+      }
+    },
+    type = type,
+    select = select
+  )
 
   # Compile "Rd" object
   roxygen_fun_rd <- roxygen2::roc_proc_text(roxygen2::rd_roclet(), roxygen_fun_text) %>%

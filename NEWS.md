@@ -4,6 +4,12 @@
 
 * Enforce R CMD check and code coverage workflows and add corresponding badges.
 
+* Add more tests to cover all code.
+
+## Bug fixes:
+
+* Fix a bug that fails to cite a parameter if the function is from a loaded/attached package but not explicitly designated, e.g. `paste` instead of `base::paste`.
+
 
 # roclang 0.1.1
 
