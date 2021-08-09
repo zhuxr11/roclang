@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://codecov.io/gh/zhuxr11/roclang?branch=master)
 <!-- badges: end -->
 
-**Package**: [*roclang*](https://cran.r-project.org/package=roclang) `r utils::packageVersion("roclang")`<br />
+**Package**: [*roclang*](https://github.com/zhuxr11/roclang) `r utils::packageVersion("roclang")`<br />
 **Authors**: Xiurui Zhu<br />
 **Modified**: `r file.info("README.Rmd")$mtime`<br />
 **Compiled**: `r Sys.time()`

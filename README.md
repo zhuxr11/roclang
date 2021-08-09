@@ -14,9 +14,9 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://codecov.io/gh/zhuxr11/roclang?branch=master)
 <!-- badges: end -->
 
-**Package**: [*roclang*](https://cran.r-project.org/package=roclang)
-0.1.2<br /> **Authors**: Xiurui Zhu<br /> **Modified**: 2021-08-07
-16:21:49<br /> **Compiled**: 2021-08-09 11:21:03
+**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.1.2<br />
+**Authors**: Xiurui Zhu<br /> **Modified**: 2021-08-09 11:50:30<br />
+**Compiled**: 2021-08-09 11:53:49
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
