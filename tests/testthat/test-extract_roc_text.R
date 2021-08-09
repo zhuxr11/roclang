@@ -53,9 +53,12 @@ test_that("extract_roc_text errors with fun as non-function/character input", {
                                 "general", "title", NA),
                NULL)
   # fun as erroneous S4 type
-  expect_error(extract_roc_text(Matrix::Matrix(1:6, 2, 3),
-                                "general", "title", NA),
+  methods::setClass("myS4Class", slots = c(foo = "numeric", bar = "numeric"))
+  my_S4_obj <- new("myS4Class")
+  expect_error(extract_roc_text(my_S4_obj, "general", "title", NA),
                NULL)
+  invisible(methods::removeClass("myS4Class"))
+  rm(my_S4_obj)
 })
 
 test_that("extract_roc_text errors wtih fun as character vector", {
@@ -99,5 +102,5 @@ test_that("extract_roc_text errors when selecting non-existing function or funct
   # Function without documentation should also result in an error
   foobar <<- function() {}
   expect_error(extract_roc_text("foobar", "general", "title", NA), NULL)
-  rm(foobar)
+  rm(foobar, envir = .GlobalEnv)
 })
