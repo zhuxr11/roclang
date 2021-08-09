@@ -16,7 +16,7 @@ coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](
 
 **Package**: [*roclang*](https://cran.r-project.org/package=roclang)
 0.1.2<br /> **Authors**: Xiurui Zhu<br /> **Modified**: 2021-08-07
-16:21:49<br /> **Compiled**: 2021-08-07 16:49:27
+16:21:49<br /> **Compiled**: 2021-08-09 11:21:03
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
