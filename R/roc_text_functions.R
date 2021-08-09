@@ -15,7 +15,7 @@ NULL
 #'
 #' @param fun Function or character (of length 1L) indicating function name.
 #' @param type Type of extraction. Please choose one from the following table
-#' according to the tag you would otherwise use if you would like to inherit
+#' according to the \code{@tag} you would otherwise use if you would like to inherit
 #' the section, parameter or set of dot-parameters as a whole:
 #'
 #' | \code{@tag} you would use | \code{type} you should choose |
