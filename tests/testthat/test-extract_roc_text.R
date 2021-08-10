@@ -55,8 +55,7 @@ test_that("extract_roc_text errors with fun as non-function/character input", {
   # fun as erroneous S4 type
   methods::setClass("myS4Class", slots = c(foo = "numeric", bar = "numeric"))
   my_S4_obj <- new("myS4Class")
-  expect_error(extract_roc_text(my_S4_obj, "general", "title", NA),
-               NULL)
+  expect_error(extract_roc_text(my_S4_obj, "general", "title", NA), NULL)
   invisible(methods::removeClass("myS4Class"))
   rm(my_S4_obj)
 })
