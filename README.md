@@ -15,8 +15,8 @@ coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.1.2<br />
-**Authors**: Xiurui Zhu<br /> **Modified**: 2021-08-09 11:50:30<br />
-**Compiled**: 2021-08-09 11:53:49
+**Author**: Xiurui Zhu<br /> **Modified**: 2021-08-26 23:24:31<br />
+**Compiled**: 2021-08-26 23:24:34
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -387,7 +387,7 @@ documentation content. With all manipulations settled, run
 
 ## Session info
 
-This file is compiled with the following packages and versions:
+This file was compiled with the following packages and versions:
 
 ``` r
 utils::sessionInfo()
@@ -411,13 +411,13 @@ utils::sessionInfo()
 #> [1] roclang_0.1.2
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] Rcpp_1.0.5       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
+#>  [1] Rcpp_1.0.7       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
 #>  [5] knitr_1.29       magrittr_2.0.1   tidyselect_1.1.0 R6_2.4.1        
-#>  [9] rlang_0.4.10     fansi_0.4.2      blob_1.2.1       stringr_1.4.0   
-#> [13] dplyr_1.0.7      tools_4.0.5      xfun_0.15        utf8_1.1.4      
-#> [17] DBI_1.1.0        htmltools_0.5.0  ellipsis_0.3.2   assertthat_0.2.1
-#> [21] yaml_2.2.1       digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0 
-#> [25] crayon_1.3.4     tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8     
-#> [29] glue_1.4.1       evaluate_0.14    rmarkdown_2.3    stringi_1.4.6   
-#> [33] compiler_4.0.5   pillar_1.6.2     generics_0.0.2   pkgconfig_2.0.3
+#>  [9] rlang_0.4.11     fansi_0.4.2      stringr_1.4.0    dplyr_1.0.7     
+#> [13] tools_4.0.5      xfun_0.15        utf8_1.1.4       DBI_1.1.0       
+#> [17] htmltools_0.5.0  ellipsis_0.3.2   assertthat_0.2.1 yaml_2.2.1      
+#> [21] digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0  crayon_1.4.1    
+#> [25] tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8      glue_1.4.2      
+#> [29] evaluate_0.14    rmarkdown_2.3    stringi_1.4.6    compiler_4.0.5  
+#> [33] pillar_1.6.2     generics_0.0.2   pkgconfig_2.0.3
 ```

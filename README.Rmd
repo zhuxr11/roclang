@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://github.com/zhuxr11/roclang) `r utils::packageVersion("roclang")`<br />
-**Authors**: Xiurui Zhu<br />
+**Author**: Xiurui Zhu<br />
 **Modified**: `r file.info("README.Rmd")$mtime`<br />
 **Compiled**: `r Sys.time()`
 
@@ -163,7 +163,7 @@ Since `extract_roc_text()` returns Rd character strings, more *ad hoc* manipulat
 
 ## Session info
 
-This file is compiled with the following packages and versions:
+This file was compiled with the following packages and versions:
 
 ```{r session-info}
 utils::sessionInfo()
