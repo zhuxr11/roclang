@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 [![R-CMD-check](https://github.com/zhuxr11/roclang/workflows/R-CMD-check/badge.svg)](https://github.com/zhuxr11/roclang/actions)
-[![Codecov test coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://codecov.io/gh/zhuxr11/roclang?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://github.com/zhuxr11/roclang) `r utils::packageVersion("roclang")`<br />
