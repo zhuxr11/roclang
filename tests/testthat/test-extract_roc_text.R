@@ -5,7 +5,7 @@ test_that("extract_roc_text extracts parts of a function documentation", {
   expect_match(extract_roc_text(stats::lm, "general", "title", NA),
                "^Fitting Linear Models$")
   expect_match(extract_roc_text(stats::lm, "general", "description", NA),
-               "^\\\\code\\{lm\\} is used to fit linear models\\.")
+               "^\\\\code\\{lm\\} is used to fit linear models")
   expect_match(extract_roc_text(stats::lm, "general", "return", NA),
                "^\\\\code\\{lm\\} returns an object of")
   expect_match(extract_roc_text(stats::lm, "general", "author", NA),
@@ -31,9 +31,9 @@ test_that("extract_roc_text sets capitalization", {
                "^fitting Linear Models$")
   # Capitalization should not work on non-letter characters, e.g. \\
   expect_match(extract_roc_text(stats::lm, "general", "description", TRUE),
-               "^\\\\code\\{lm\\} is used to fit linear models\\.")
+               "^\\\\code\\{lm\\} is used to fit linear models")
   expect_match(extract_roc_text(stats::lm, "general", "description", TRUE),
-               "^\\\\code\\{lm\\} is used to fit linear models\\.")
+               "^\\\\code\\{lm\\} is used to fit linear models")
 })
 
 test_that("extract_roc_text uses character function name input", {
@@ -102,7 +102,7 @@ test_that("extract_roc_text errors when selecting non-existing formalArgs", {
 })
 
 test_that("extract_roc_text errors when selecting non-existing function or function without documentation", {
-  # This will trigger native get() error, typically: 'datum' not fount (but may vary with different locales)
+  # This will trigger native get() error, typically: 'datum' not found (but may vary with different locales)
   expect_error(extract_roc_text("foobar", "general", "title", NA), NULL)
   # Function without documentation should also result in an error
   foobar <<- function() {}

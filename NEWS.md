@@ -1,5 +1,12 @@
 # roclang 0.1.3
 
+## Bug fixes:
+
+* Update string matches in `extract_roc_text.R` because of an update in `stats::lm()` documentation: from `\\\\code\{lm\} is used to fit linear models\\.` to `\\\\code\{lm\} is used to fit linear models, including multivariate ones\\.`.
+
+* Fix some typos in comments.
+
+
 # roclang 0.1.2
 
 ## Enhancements:
