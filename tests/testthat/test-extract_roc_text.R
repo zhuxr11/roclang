@@ -42,7 +42,7 @@ test_that("extract_roc_text uses character function name input", {
                "^Fitting Linear Models$")
   # Character function name without package name
   expect_match(extract_roc_text("paste", "param", "sep", NA),
-               "^a character string to separate the terms\\.")
+               "^a character string to separate the terms")
 })
 
 test_that("extract_roc_text errors with fun as non-function/character input", {
