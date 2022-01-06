@@ -1,6 +1,6 @@
 Package: roclang
 Title: Functions for Diffusing Function Documentations into 'Roxygen' Comments
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: 
     person(given = "Xiurui",
            family = "Zhu",
