@@ -14,9 +14,9 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
 <!-- badges: end -->
 
-**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.1.2<br />
+**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.1.3<br />
 **Author**: Xiurui Zhu<br /> **Modified**: 2021-10-20 15:16:29<br />
-**Compiled**: 2021-10-20 15:16:31
+**Compiled**: 2022-01-06 09:08:18
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -408,7 +408,7 @@ utils::sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] roclang_0.1.2
+#> [1] roclang_0.1.3
 #> 
 #> loaded via a namespace (and not attached):
 #>  [1] Rcpp_1.0.7       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
@@ -419,5 +419,5 @@ utils::sessionInfo()
 #> [21] digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0  crayon_1.4.1    
 #> [25] tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8      glue_1.4.2      
 #> [29] evaluate_0.14    rmarkdown_2.3    stringi_1.4.6    compiler_4.0.5  
-#> [33] pillar_1.6.2     generics_0.0.2   pkgconfig_2.0.3
+#> [33] pillar_1.6.2     generics_0.1.0   pkgconfig_2.0.3
 ```
