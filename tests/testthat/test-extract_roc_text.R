@@ -41,8 +41,8 @@ test_that("extract_roc_text uses character function name input", {
   expect_match(extract_roc_text("stats::lm", "general", "title", NA),
                "^Fitting Linear Models$")
   # Character function name without package name
-  expect_match(extract_roc_text("paste", "param", "sep", NA),
-               "^a character string to separate the terms")
+  expect_match(extract_roc_text("library", "param", "package", NA),
+               "^the name of a package")
 })
 
 test_that("extract_roc_text errors with fun as non-function/character input", {
@@ -61,7 +61,7 @@ test_that("extract_roc_text errors with fun as non-function/character input", {
 })
 
 test_that("extract_roc_text errors wtih fun as character vector", {
-  expect_error(extract_roc_text(c("stats::lm", "paste"), "general", "title", NA), "fun .*length 1")
+  expect_error(extract_roc_text(c("stats::lm", "library"), "general", "title", NA), "fun .*length 1")
 })
 
 test_that("extract_roc_text errors wtih multiple/blank selections unless type = 'dot_params'", {
