@@ -14,9 +14,9 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
 <!-- badges: end -->
 
-**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.1.3<br />
-**Author**: Xiurui Zhu<br /> **Modified**: 2021-10-20 15:16:29<br />
-**Compiled**: 2022-01-06 09:08:18
+**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.1.4<br />
+**Author**: Xiurui Zhu<br /> **Modified**: 2022-01-31 12:00:00<br />
+**Compiled**: 2022-01-31 18:48:58
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -393,31 +393,32 @@ This file was compiled with the following packages and versions:
 utils::sessionInfo()
 #> R version 4.0.5 (2021-03-31)
 #> Platform: x86_64-w64-mingw32/x64 (64-bit)
-#> Running under: Windows 10 x64 (build 19042)
+#> Running under: Windows 7 x64 (build 7601) Service Pack 1
 #> 
 #> Matrix products: default
 #> 
 #> locale:
-#> [1] LC_COLLATE=Chinese (Simplified)_China.936 
-#> [2] LC_CTYPE=Chinese (Simplified)_China.936   
-#> [3] LC_MONETARY=Chinese (Simplified)_China.936
-#> [4] LC_NUMERIC=C                              
-#> [5] LC_TIME=Chinese (Simplified)_China.936    
+#> [1] LC_COLLATE=Chinese (Simplified)_People's Republic of China.936 
+#> [2] LC_CTYPE=Chinese (Simplified)_People's Republic of China.936   
+#> [3] LC_MONETARY=Chinese (Simplified)_People's Republic of China.936
+#> [4] LC_NUMERIC=C                                                   
+#> [5] LC_TIME=Chinese (Simplified)_People's Republic of China.936    
 #> 
 #> attached base packages:
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] roclang_0.1.3
+#> [1] roclang_0.1.4
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] Rcpp_1.0.7       rex_1.2.0        xml2_1.3.2       roxygen2_7.1.1  
-#>  [5] knitr_1.29       magrittr_2.0.1   tidyselect_1.1.0 R6_2.4.1        
-#>  [9] rlang_0.4.11     fansi_0.4.2      stringr_1.4.0    dplyr_1.0.7     
-#> [13] tools_4.0.5      xfun_0.15        utf8_1.1.4       DBI_1.1.0       
-#> [17] htmltools_0.5.0  ellipsis_0.3.2   assertthat_0.2.1 yaml_2.2.1      
-#> [21] digest_0.6.25    tibble_3.1.3     lifecycle_1.0.0  crayon_1.4.1    
-#> [25] tidyr_1.1.3      purrr_0.3.4      vctrs_0.3.8      glue_1.4.2      
-#> [29] evaluate_0.14    rmarkdown_2.3    stringi_1.4.6    compiler_4.0.5  
-#> [33] pillar_1.6.2     generics_0.1.0   pkgconfig_2.0.3
+#>  [1] rex_1.2.1        rstudioapi_0.13  xml2_1.3.3       roxygen2_7.1.2  
+#>  [5] knitr_1.37       magrittr_2.0.2   tidyselect_1.1.1 R6_2.5.1        
+#>  [9] rlang_1.0.0      fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0   
+#> [13] dplyr_1.0.7      tools_4.0.5      xfun_0.29        utf8_1.2.2      
+#> [17] DBI_1.1.2        cli_3.1.1        htmltools_0.5.2  ellipsis_0.3.2  
+#> [21] assertthat_0.2.1 yaml_2.2.2       digest_0.6.29    tibble_3.1.6    
+#> [25] lifecycle_1.0.1  crayon_1.4.2     tidyr_1.1.4      purrr_0.3.4     
+#> [29] vctrs_0.3.8      glue_1.6.1       evaluate_0.14    rmarkdown_2.11  
+#> [33] stringi_1.7.6    compiler_4.0.5   pillar_1.6.5     generics_0.1.1  
+#> [37] pkgconfig_2.0.3
 ```
