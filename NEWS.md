@@ -2,7 +2,7 @@
 
 ## Enhancements:
 
-* Add check on whether a function without specifying package (e.g. `filter`) appear in multiple packages (e.g. `dplyr` and `stats`). This will now result in an error.
+* Add check on whether a function without specifying package (e.g. `filter`) appears in multiple packages (e.g. `dplyr` and `stats`). This will now result in an error.
 
 ## Bug fixes:
 
