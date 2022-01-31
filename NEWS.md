@@ -1,5 +1,9 @@
 # roclang 0.1.4
 
+## Enhancements:
+
+* Add check on whether a function without specifying package (e.g. `filter`) appear in multiple packages (e.g. `dplyr` and `stats`). This will now result in an error.
+
 ## Bug fixes:
 
 * Change the test of a function from base package from `base::paste` function to `base::library`, since the former will result in `<NA>` when extracting the documentation for `sep` on MKL platform, as reported by CRAN.

@@ -109,3 +109,23 @@ test_that("extract_roc_text errors when selecting non-existing function or funct
   expect_error(extract_roc_text("foobar", "general", "title", NA), "package")
   rm(foobar, envir = .GlobalEnv)
 })
+
+test_that("extract_roc_text errors with function that appear in multiple packages", {
+  fun_pkg_count <- sum(stringr::str_detect(utils::find("filter", mode = "function"), "^package:"))
+  if (fun_pkg_count == 0L) {
+    # This is unlikely to happen, since "stats" package should provide a "filter" function from the beginning
+    expect_error(extract_roc_text(filter, "general", "title", NA), NULL)
+  } else {
+    # "dplyr" package provides another version of "filter" function, which should trigger an error if package is not specified
+    dplyr_ns_lgl <- "dplyr" %in% loadedNamespaces()
+    if (fun_pkg_count == 1L) {
+      expect_error(extract_roc_text(filter, "general", "title", NA), NA)
+      if (require("dplyr") == FALSE) {
+        install.packages("dplyr")
+        library(dplyr)
+      }
+    }
+    expect_error(extract_roc_text(filter, "general", "title", NA), "more than one packages")
+    if (dplyr_ns_lgl == FALSE) try(detach("dplyr", unload = TRUE), silent = TRUE)
+  }
+})

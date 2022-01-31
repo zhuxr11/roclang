@@ -163,13 +163,17 @@ extract_roc_text <- function(
       fun
     } else {
       # Attach package name
-      fun_pgk_name <- utils::find(fun, mode = "function")
-      if (stringr::str_detect(fun_pgk_name, "^package:") == TRUE) {
+      fun_env_name <- utils::find(fun, mode = "function")
+      fun_pgk_name <- stringr::str_subset(fun_env_name, "^package:")
+      if (length(fun_pgk_name) == 1L) {
         fun_pgk_name <- stringr::str_replace(fun_pgk_name, "^package:", "")
         paste(fun_pgk_name, fun, sep = "::")
-      } else {
+      } else if (length(fun_pgk_name) == 0L) {
         stop("Function ", fun, " should live in a package to get its documentation; ",
-             "now its environment is: ", fun_pgk_name)
+             "now its environment is: ", paste(fun_env_name, collapse = ", "))
+      } else {
+        stop("Function ", fun, " is found in more than one packages; please use one of: ",
+             paste(paste0(stringr::str_replace(fun_pgk_name, "^package:", ""), "::", fun), collapse = ", "))
       }
     },
     type = type,
