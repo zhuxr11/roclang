@@ -15,8 +15,8 @@ coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.2.0<br />
-**Author**: Xiurui Zhu<br /> **Modified**: 2022-05-03 14:51:14<br />
-**Compiled**: 2022-05-03 14:52:01
+**Author**: Xiurui Zhu<br /> **Modified**: 2022-05-03 15:30:42<br />
+**Compiled**: 2022-05-03 15:30:46
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -186,7 +186,7 @@ cat(
                    select = "package",
                    capitalize = NA)
 )
-#> Error in extract_roc_text(library, type = "param", select = "package", : No Rd string extracted (NA_character_); please check your inputs; when using roxygen > 7.1.2, please check whether some parameters are co-documented: if they are, you need to select them all by select = 'param_a,param_b' or select = c('param_a', 'param_b')
+#> Error in extract_roc_text(library, type = "param", select = "package", : No Rd string extracted (NA_character_); please check your inputs; when using roxygen > 7.1.2, please check whether some parameters are co-documented: if they are, you need to select them as a whole set by select = 'param_a,param_b' or select = c('param_a', 'param_b')
 
 # Multiple parameters cannot be selected if independently documented
 cat(

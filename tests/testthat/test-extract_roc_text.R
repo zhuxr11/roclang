@@ -109,8 +109,10 @@ test_that("extract_roc_text errors when selecting ... with type = 'param' or 'do
   expect_error(extract_roc_text(stats::lm, "dot_params", "...", NA), "select .*\\.{3}")
 })
 
-test_that("extract_roc_text errors when selecting non-existing formalArgs", {
+test_that("extract_roc_text errors when selecting non-existing formalArgs or section name", {
   expect_error(extract_roc_text(stats::lm, "param", "datum", NA), "c\\('datum'\\) .*match .*formalArgs")
+  expect_error(extract_roc_text(levels, "general", "return", NA),
+               "\\(NA_character_\\); .*check your inputs(?!.*co\\-documented)", perl = TRUE)
   expect_error(extract_roc_text(library, "param", "package,foo", NA), "c\\('foo'\\) .*match .*formalArgs")
   # For type = "dot_params", test a mixture of existing/non-existing formal arguments
   expect_error(extract_roc_text(stats::lm, "dot_params", "datum", NA),
