@@ -1,5 +1,14 @@
 # roclang 0.2.0
 
+## Enhancements:
+
+* Enable selection of multiple parameters when using `type = "param"`, in accordance with the update from `roxygen2 > 7.1.2` that co-documented parameters should be selected in a whole set when extracting their shared documentation. However, selecting multiple independently documented parameters using `type = "param"` is still not allowed, since the documentation to diffuse should keep to a single entry per call. To diffuse documentation from multiple independently documented parameters, please call the function on each of them.
+
+* Add check on whether the extracted documentation entry is invalid (`NA_character_`) or multiple. These two cases will now result in error, since in most cases such results are not expected. The documentation entry can be multiple if selecting multiple independently documented parameters using `type = "param"` (not allowed).
+
+* Keep backward compatibility with `roxygen2 <= 7.1.2` while accommodating to the changes (tested under `roxygen2 = 7.1.1`).
+
+
 # roclang 0.1.4
 
 ## Enhancements:

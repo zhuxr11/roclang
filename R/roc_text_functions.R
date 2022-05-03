@@ -94,14 +94,33 @@ extract_roc_text <- function(
   select <- switch(
     type,
     # "general" and "param" only allow 1 selection (no spaces; space = multiple selection)
-    general = ,
-    param =  {
+    general = {
       if (length(select) != 1L) {
-        stop("select should be length 1L for type = ", type)
+        stop("select should be length 1L for type = '", type, "'")
       } else if (stringr::str_detect(select, " ") == TRUE) {
-        stop("select should contain no spaces since only 1 is allowed for type = ", type)
+        stop("select should contain no spaces for type = '", type, "', ",
+             "since only 1 is allowed for type = '", type, "'")
       } else if (identical(stringr::str_trim(select), "") == TRUE) {
-        stop("select should not be blank for type = ", type)
+        stop("select should not be blank for type = '", type, "'")
+      } else {
+        select
+      }
+    },
+    param = {
+      if (length(select) != 1L) {
+        paste(select, collapse = ",")
+      } else if (stringr::str_detect(select, " ") == TRUE) {
+        err_message <- paste0("select should contain no spaces for type = '", type, "'")
+        if (utils::packageVersion("roxygen2") > "7.1.2") {
+          err_message <- paste0(
+            err_message,
+            "; when using roxygen2 > 7.1.2, if the parameters are co-documented, ",
+            "please use select = 'param_a,param_b' instead"
+          )
+        }
+        stop(err_message)
+      } else if (identical(stringr::str_trim(select), "") == TRUE) {
+        stop("select should not be blank for type = '", type, "'")
       } else {
         select
       }
@@ -109,9 +128,9 @@ extract_roc_text <- function(
     # "section" only allow 1 selection (possibly with spaces)
     section = {
       if (length(select) != 1L) {
-        stop("select should be length 1L for type = ", type)
+        stop("select should be length 1L for type = '", type, "'")
       } else if (identical(stringr::str_trim(select), "") == TRUE) {
-        stop("select should not be blank for type = ", type)
+        stop("select should not be blank for type = '", type, "'")
       } else {
         select
       }
@@ -130,11 +149,15 @@ extract_roc_text <- function(
                         mode = "function")
   }
   if (type %in% "param" == TRUE) {
+    # Split param to check formalArgs() in case some are co-documented
+    select_pos <- stringr::str_split(select, ",")[[1L]]
+    select_pos_lgl <- select_pos %in% methods::formalArgs(fun_function)
     if (identical(select, "...") == TRUE) {
       stop("cannot select '...' for type = 'param'; ",
            "use type = 'dot_params' instead")
-    } else if (select %in% methods::formalArgs(fun_function) == FALSE) {
-      stop("select = ", select, " does not match any of methods::formalArgs(", fun, ")")
+    } else if (any(select_pos_lgl == FALSE)) {
+      stop("select = c('", paste(select_pos[select_pos_lgl == FALSE], collapse = "', '"),
+           "') does not match any of methods::formalArgs(", fun, ")")
     }
   } else if (type %in% "dot_params" == TRUE) {
     if (identical(select, "...") == TRUE) {
@@ -150,8 +173,8 @@ extract_roc_text <- function(
           stringr::str_subset("^-", negate = TRUE)
         select_pos_lgl <- select_pos %in% methods::formalArgs(fun_function)
         if (any(select_pos_lgl == FALSE)) {
-          stop("select = c(\"", paste(select_pos[select_pos_lgl == FALSE], collapse = "\", \""),
-               "\") does not match any of methods::formalArgs(", fun, ")")
+          stop("select = c('", paste(select_pos[select_pos_lgl == FALSE], collapse = "', '"),
+               "') does not match any of methods::formalArgs(", fun, ")")
         }
       }
     }
@@ -205,9 +228,28 @@ extract_roc_text <- function(
   roxygen_extract_text <- switch(
     type,
     general = ,
-    param = ,
     dot_params = roxygen_extract_text %>%
       stringr::str_trim(),
+    param = {
+      # Check whether multiple parameters are inherited
+      eval_res <- tryCatch(
+        roxygen_extract_text %>%
+          str2lang() %>%
+          eval(),
+        error = function(err) {"pass"}
+      )
+      if (length(eval_res) > 1L) {
+        err_message <- paste0("select should be length 1L for type = '", type, "'")
+        if (utils::packageVersion("roxygen2") > "7.1.2") {
+          err_message <- paste0(err_message, ", unless these parameters are co-documented when using roxygen2 > 7.1.2")
+        }
+        err_message <- paste0(err_message, "; currently, the length of the result from type = '",
+                              type, "' is: ", length(eval_res))
+        stop(err_message)
+      }
+      roxygen_extract_text %>%
+        stringr::str_trim()
+    },
     section = {
       roxygen_extract_text %>%
         str2lang() %>%
@@ -217,6 +259,18 @@ extract_roc_text <- function(
     },
     stop("type not supported as: ", type)
   )
+  if (is.na(roxygen_extract_text) == TRUE) {
+    err_message <- "No Rd string extracted (NA_character_); please check your inputs"
+    if (type %in% "param" == TRUE && utils::packageVersion("roxygen2") > "7.1.2") {
+      err_message <- paste0(
+        err_message,
+        "; when using roxygen > 7.1.2, please check whether some parameters are co-documented: ",
+        "if they are, you need to select them as a whole set by select = 'param_a,param_b' ",
+        "or select = c('param_a', 'param_b')"
+      )
+    }
+    stop(err_message)
+  }
 
   # Handle capitalization
   if (is.na(capitalize) == TRUE) {

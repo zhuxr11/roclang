@@ -13,6 +13,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+```{r, echo=FALSE}
+roxygen_new <- utils::packageVersion("roxygen2") > "7.1.2"
+```
+
 # Diffusing 'roxygen' documentation content with 'roclang'
 
 <!-- badges: start -->
@@ -77,7 +81,7 @@ cat(
   )
 )
 
-# Inherit a set of dot params, and diffuse it into text
+# Inherit a set of dot parameters, and diffuse it into text
 cat(
   paste0(
     "`lm_arg` is a named list of ",
@@ -86,6 +90,46 @@ cat(
                      select = c("-formula", "-data"),
                      capitalize = FALSE)
   )
+)
+```
+
+```{r text-co-documentation, results='asis', include=roxygen_new, echo=FALSE}
+cat(
+  'When using `roxygen2 > 7.1.2`, the whole set of co-documented parameters should be selected to derive valid Rd documentation (see `news(package = "roxygen2")`). As is known from `?library`, parameters `package` and `help` are co-documented in function `library`:'
+)
+```
+
+```{r example-co-documentation, include=roxygen_new, eval=roxygen_new, error=TRUE}
+# You need to select the whole set of co-documented parameters
+cat(
+  extract_roc_text(library,
+                   type = "param",
+                   select = "package,help",
+                   capitalize = NA)
+)
+
+# The order does not matter; character vector can also be used
+cat(
+  extract_roc_text(library,
+                   type = "param",
+                   select = c("help", "package"),
+                   capitalize = NA)
+)
+
+# It will result in error if selecting only part of co-documented parameters 
+cat(
+  extract_roc_text(library,
+                   type = "param",
+                   select = "package",
+                   capitalize = NA)
+)
+
+# Multiple parameters cannot be selected if independently documented
+cat(
+  extract_roc_text(library,
+                   type = "param",
+                   select = c("pos", "lib.loc"),
+                   capitalize = NA)
 )
 ```
 

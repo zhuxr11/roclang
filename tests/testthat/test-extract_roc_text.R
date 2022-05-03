@@ -22,6 +22,22 @@ test_that("extract_roc_text extracts parts of a function documentation", {
                "^Arguments passed on to")
   expect_match(extract_roc_text(stats::lm, "dot_params", c("-formula", "-data"), NA),
                "^Arguments passed on to")
+  # You need to inherit the whole set of parameters if they are co-documented
+  if (utils::packageVersion("roxygen2") > "7.1.2") {
+    expect_error(extract_roc_text(library, "param", "package", NA),
+                 "\\(NA_character_\\); .*check your inputs; .*co\\-documented")
+    expect_match(extract_roc_text(library, "param", "package,help", NA),
+                 "^the name of a package")
+    expect_match(extract_roc_text(library, "param", c("package", "help"), NA),
+                 "^the name of a package")
+  } else {
+    expect_match(extract_roc_text(library, "param", "package", NA),
+                 "^the name of a package")
+    expect_error(extract_roc_text(library, "param", "package,help", NA),
+                 "select .*length 1L")
+    expect_error(extract_roc_text(library, "param", c("package", "help"), NA),
+                 "select .*length 1L")
+  }
 })
 
 test_that("extract_roc_text sets capitalization", {
@@ -41,8 +57,8 @@ test_that("extract_roc_text uses character function name input", {
   expect_match(extract_roc_text("stats::lm", "general", "title", NA),
                "^Fitting Linear Models$")
   # Character function name without package name
-  expect_match(extract_roc_text("library", "param", "package", NA),
-               "^the name of a package")
+  expect_match(extract_roc_text("library", "param", "pos", NA),
+               "^the position on the search list")
 })
 
 test_that("extract_roc_text errors with fun as non-function/character input", {
@@ -61,13 +77,19 @@ test_that("extract_roc_text errors with fun as non-function/character input", {
 })
 
 test_that("extract_roc_text errors wtih fun as character vector", {
-  expect_error(extract_roc_text(c("stats::lm", "library"), "general", "title", NA), "fun .*length 1")
+  expect_error(extract_roc_text(c("stats::lm", "library"), "general", "title", NA), "fun .*length 1L")
 })
 
 test_that("extract_roc_text errors wtih multiple/blank selections unless type = 'dot_params'", {
-  expect_error(extract_roc_text(stats::lm, "general", c("title", "return"), NA), "select .*length 1")
-  expect_error(extract_roc_text(stats::lm, "section", rep("Using time series", 2L), NA), "select .*length 1")
-  expect_error(extract_roc_text(stats::lm, "param", c("formula", "data"), NA), "select .*length 1")
+  expect_error(extract_roc_text(stats::lm, "general", c("title", "return"), NA), "select .*length 1L")
+  expect_error(extract_roc_text(stats::lm, "section", rep("Using time series", 2L), NA), "select .*length 1L")
+  if (utils::packageVersion("roxygen2") > "7.1.2") {
+    expect_error(extract_roc_text(stats::lm, "param", c("formula", "data"), NA),
+                 "select .*length 1L .*co\\-documented")
+  } else {
+    expect_error(extract_roc_text(stats::lm, "param", c("formula", "data"), NA),
+                 "select .*length 1L(?!.*co\\-documented)", perl = TRUE)
+  }
   # Spaces are regarded as multiple selections unless type = "section"
   expect_error(extract_roc_text(stats::lm, "general", "title return", NA), "select .*space")
   expect_error(extract_roc_text(stats::lm, "section", "Using time series", NA), NA)
@@ -88,7 +110,8 @@ test_that("extract_roc_text errors when selecting ... with type = 'param' or 'do
 })
 
 test_that("extract_roc_text errors when selecting non-existing formalArgs", {
-  expect_error(extract_roc_text(stats::lm, "param", "datum", NA), "datum .*match .*formalArgs")
+  expect_error(extract_roc_text(stats::lm, "param", "datum", NA), "c\\('datum'\\) .*match .*formalArgs")
+  expect_error(extract_roc_text(library, "param", "package,foo", NA), "c\\('foo'\\) .*match .*formalArgs")
   # For type = "dot_params", test a mixture of existing/non-existing formal arguments
   expect_error(extract_roc_text(stats::lm, "dot_params", "datum", NA),
                "c\\(.*datum.*\\) .*match .*formalArgs")

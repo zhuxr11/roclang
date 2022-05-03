@@ -14,9 +14,9 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
 <!-- badges: end -->
 
-**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.1.4<br />
-**Author**: Xiurui Zhu<br /> **Modified**: 2022-01-31 12:00:00<br />
-**Compiled**: 2022-01-31 18:48:58
+**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.2.0<br />
+**Author**: Xiurui Zhu<br /> **Modified**: 2022-05-03 14:51:14<br />
+**Compiled**: 2022-05-03 14:52:01
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -104,7 +104,7 @@ cat(
 #>     model to be fitted.  The details of model specification are given
 #>     under \sQuote{Details}.
 
-# Inherit a set of dot params, and diffuse it into text
+# Inherit a set of dot parameters, and diffuse it into text
 cat(
   paste0(
     "`lm_arg` is a named list of ",
@@ -132,19 +132,7 @@ cat(
 #>     \item{\code{method}}{the method to be used; for fitting, currently only
 #>     \code{method = "qr"} is supported; \code{method = "model.frame"} returns
 #>     the model frame (the same as with \code{model = TRUE}, see below).}
-#>     \item{\code{model}}{logicals.  If \code{TRUE} the corresponding
-#>     components of the fit (the model frame, the model matrix, the
-#>     response, the QR decomposition) are returned.
-#>   }
-#>     \item{\code{x}}{logicals.  If \code{TRUE} the corresponding
-#>     components of the fit (the model frame, the model matrix, the
-#>     response, the QR decomposition) are returned.
-#>   }
-#>     \item{\code{y}}{logicals.  If \code{TRUE} the corresponding
-#>     components of the fit (the model frame, the model matrix, the
-#>     response, the QR decomposition) are returned.
-#>   }
-#>     \item{\code{qr}}{logicals.  If \code{TRUE} the corresponding
+#>     \item{\code{model,x,y,qr}}{logicals.  If \code{TRUE} the corresponding
 #>     components of the fit (the model frame, the model matrix, the
 #>     response, the QR decomposition) are returned.
 #>   }
@@ -159,6 +147,55 @@ cat(
 #>     included in the formula instead or as well, and if more than one are
 #>     specified their sum is used.  See \code{\link[stats]{model.offset}}.}
 #>   }
+```
+
+When using `roxygen2 > 7.1.2`, the whole set of co-documented parameters
+should be selected to derive valid Rd documentation (see
+`news(package = "roxygen2")`). As is known from `?library`, parameters
+`package` and `help` are co-documented in function `library`:
+
+``` r
+# You need to select the whole set of co-documented parameters
+cat(
+  extract_roc_text(library,
+                   type = "param",
+                   select = "package,help",
+                   capitalize = NA)
+)
+#> the name of a package, given as a \link[base]{name} or
+#>     literal character string, or a character string, depending on
+#>     whether \code{character.only} is \code{FALSE} (default) or
+#>     \code{TRUE}.
+
+# The order does not matter; character vector can also be used
+cat(
+  extract_roc_text(library,
+                   type = "param",
+                   select = c("help", "package"),
+                   capitalize = NA)
+)
+#> the name of a package, given as a \link[base]{name} or
+#>     literal character string, or a character string, depending on
+#>     whether \code{character.only} is \code{FALSE} (default) or
+#>     \code{TRUE}.
+
+# It will result in error if selecting only part of co-documented parameters 
+cat(
+  extract_roc_text(library,
+                   type = "param",
+                   select = "package",
+                   capitalize = NA)
+)
+#> Error in extract_roc_text(library, type = "param", select = "package", : No Rd string extracted (NA_character_); please check your inputs; when using roxygen > 7.1.2, please check whether some parameters are co-documented: if they are, you need to select them all by select = 'param_a,param_b' or select = c('param_a', 'param_b')
+
+# Multiple parameters cannot be selected if independently documented
+cat(
+  extract_roc_text(library,
+                   type = "param",
+                   select = c("pos", "lib.loc"),
+                   capitalize = NA)
+)
+#> Error in extract_roc_text(library, type = "param", select = c("pos", "lib.loc"), : select should be length 1L for type = 'param', unless these parameters are co-documented when using roxygen2 > 7.1.2; currently, the length of the result from type = 'param' is: 2
 ```
 
 ## Use cases in ‘roxygen’ comments
@@ -274,19 +311,7 @@ roc_eval_text(roxygen2::rd_roclet(), fun_text)[[1L]]
 #>     \item{\code{method}}{the method to be used; for fitting, currently only
 #>     \code{method = "qr"} is supported; \code{method = "model.frame"} returns
 #>     the model frame (the same as with \code{model = TRUE}, see below).}
-#>     \item{\code{model}}{logicals.  If \code{TRUE} the corresponding
-#>     components of the fit (the model frame, the model matrix, the
-#>     response, the QR decomposition) are returned.
-#>   }
-#>     \item{\code{x}}{logicals.  If \code{TRUE} the corresponding
-#>     components of the fit (the model frame, the model matrix, the
-#>     response, the QR decomposition) are returned.
-#>   }
-#>     \item{\code{y}}{logicals.  If \code{TRUE} the corresponding
-#>     components of the fit (the model frame, the model matrix, the
-#>     response, the QR decomposition) are returned.
-#>   }
-#>     \item{\code{qr}}{logicals.  If \code{TRUE} the corresponding
+#>     \item{\code{model,x,y,qr}}{logicals.  If \code{TRUE} the corresponding
 #>     components of the fit (the model frame, the model matrix, the
 #>     response, the QR decomposition) are returned.
 #>   }
@@ -408,17 +433,20 @@ utils::sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] roclang_0.1.4
+#> [1] roclang_0.2.0
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] rex_1.2.1        rstudioapi_0.13  xml2_1.3.3       roxygen2_7.1.2  
-#>  [5] knitr_1.37       magrittr_2.0.2   tidyselect_1.1.1 R6_2.5.1        
-#>  [9] rlang_1.0.0      fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0   
-#> [13] dplyr_1.0.7      tools_4.0.5      xfun_0.29        utf8_1.2.2      
-#> [17] DBI_1.1.2        cli_3.1.1        htmltools_0.5.2  ellipsis_0.3.2  
-#> [21] assertthat_0.2.1 yaml_2.2.2       digest_0.6.29    tibble_3.1.6    
-#> [25] lifecycle_1.0.1  crayon_1.4.2     tidyr_1.1.4      purrr_0.3.4     
-#> [29] vctrs_0.3.8      glue_1.6.1       evaluate_0.14    rmarkdown_2.11  
-#> [33] stringi_1.7.6    compiler_4.0.5   pillar_1.6.5     generics_0.1.1  
+#>  [1] rex_1.2.1           rstudioapi_0.13     xml2_1.3.3         
+#>  [4] roxygen2_7.1.2.9000 knitr_1.37          magrittr_2.0.2     
+#>  [7] tidyselect_1.1.1    R6_2.5.1            rlang_1.0.0        
+#> [10] fastmap_1.1.0       fansi_1.0.2         stringr_1.4.0      
+#> [13] dplyr_1.0.7         tools_4.0.5         xfun_0.29          
+#> [16] utf8_1.2.2          DBI_1.1.2           cli_3.1.1          
+#> [19] htmltools_0.5.2     ellipsis_0.3.2      assertthat_0.2.1   
+#> [22] yaml_2.2.2          digest_0.6.29       tibble_3.1.6       
+#> [25] lifecycle_1.0.1     crayon_1.4.2        tidyr_1.1.4        
+#> [28] purrr_0.3.4         vctrs_0.3.8         glue_1.6.1         
+#> [31] evaluate_0.14       rmarkdown_2.11      stringi_1.7.6      
+#> [34] compiler_4.0.5      pillar_1.6.5        generics_0.1.1     
 #> [37] pkgconfig_2.0.3
 ```
