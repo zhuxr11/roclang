@@ -76,6 +76,7 @@ Change log:
 \item{0.1.0 Xiurui Zhu - Initiate the function.}
 \item{0.1.1 Xiurui Zhu - Change the default of \code{capitalize} from \code{TRUE} to \code{NA}.}
 \item{0.1.1 Xiurui Zhu - Improve code security in evaluating the formal arguments of \code{fun}.}
+\item{0.2.0 Xiurui Zhu - Make changes for \code{roxygen2 > 7.1.2} while keeping compatibility.}
 }
 }
 \examples{
