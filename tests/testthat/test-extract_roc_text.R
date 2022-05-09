@@ -48,7 +48,7 @@ test_that("extract_roc_text sets capitalization", {
   # Capitalization should not work on non-letter characters, e.g. \\
   expect_match(extract_roc_text(stats::lm, "general", "description", TRUE),
                "^\\\\code\\{lm\\} is used to fit linear models")
-  expect_match(extract_roc_text(stats::lm, "general", "description", TRUE),
+  expect_match(extract_roc_text(stats::lm, "general", "description", FALSE),
                "^\\\\code\\{lm\\} is used to fit linear models")
 })
 
