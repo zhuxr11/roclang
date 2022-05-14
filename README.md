@@ -16,7 +16,7 @@ coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](
 
 **Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.2.0<br />
 **Author**: Xiurui Zhu<br /> **Modified**: 2022-05-03 15:30:42<br />
-**Compiled**: 2022-05-03 15:30:46
+**Compiled**: 2022-05-14 12:00:19
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -436,17 +436,14 @@ utils::sessionInfo()
 #> [1] roclang_0.2.0
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] rex_1.2.1           rstudioapi_0.13     xml2_1.3.3         
-#>  [4] roxygen2_7.1.2.9000 knitr_1.37          magrittr_2.0.2     
-#>  [7] tidyselect_1.1.1    R6_2.5.1            rlang_1.0.0        
-#> [10] fastmap_1.1.0       fansi_1.0.2         stringr_1.4.0      
-#> [13] dplyr_1.0.7         tools_4.0.5         xfun_0.29          
-#> [16] utf8_1.2.2          DBI_1.1.2           cli_3.1.1          
-#> [19] htmltools_0.5.2     ellipsis_0.3.2      assertthat_0.2.1   
-#> [22] yaml_2.2.2          digest_0.6.29       tibble_3.1.6       
-#> [25] lifecycle_1.0.1     crayon_1.4.2        tidyr_1.1.4        
-#> [28] purrr_0.3.4         vctrs_0.3.8         glue_1.6.1         
-#> [31] evaluate_0.14       rmarkdown_2.11      stringi_1.7.6      
-#> [34] compiler_4.0.5      pillar_1.6.5        generics_0.1.1     
+#>  [1] rex_1.2.1        rstudioapi_0.13  xml2_1.3.3       roxygen2_7.2.0  
+#>  [5] knitr_1.37       magrittr_2.0.2   tidyselect_1.1.1 R6_2.5.1        
+#>  [9] rlang_1.0.0      fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0   
+#> [13] dplyr_1.0.7      tools_4.0.5      xfun_0.29        utf8_1.2.2      
+#> [17] DBI_1.1.2        cli_3.3.0        htmltools_0.5.2  ellipsis_0.3.2  
+#> [21] assertthat_0.2.1 yaml_2.2.2       digest_0.6.29    tibble_3.1.6    
+#> [25] lifecycle_1.0.1  crayon_1.4.2     tidyr_1.1.4      purrr_0.3.4     
+#> [29] vctrs_0.3.8      glue_1.6.1       evaluate_0.14    rmarkdown_2.11  
+#> [33] stringi_1.7.6    compiler_4.0.5   pillar_1.6.5     generics_0.1.1  
 #> [37] pkgconfig_2.0.3
 ```
