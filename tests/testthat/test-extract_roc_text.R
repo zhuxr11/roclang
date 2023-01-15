@@ -104,9 +104,13 @@ test_that("extract_roc_text errors wtih multiple/blank selections unless type = 
   expect_error(extract_roc_text(stats::lm, "dot_params", "", NA), NA)
 })
 
-test_that("extract_roc_text errors when selecting ... with type = 'param' or 'dot_params'", {
-  expect_error(extract_roc_text(stats::lm, "param", "...", NA), "select .*\\.{3}")
+test_that("extract_roc_text errors when selecting ... with type = 'dot_params'", {
   expect_error(extract_roc_text(stats::lm, "dot_params", "...", NA), "select .*\\.{3}")
+  expect_error(extract_roc_text(stats::lm, "dot_params", "-...", NA), "select .*\\.{3}")
+  expect_error(extract_roc_text(stats::lm, "dot_params", "na.last ...", NA), "select .*\\.{3}")
+  expect_error(extract_roc_text(stats::lm, "dot_params", "-na.last -...", NA), "select .*\\.{3}")
+  expect_error(extract_roc_text(stats::lm, "dot_params", c("na.last", "..."), NA), "select .*\\.{3}")
+  expect_error(extract_roc_text(stats::lm, "dot_params", c("-na.last", "-..."), NA), "select .*\\.{3}")
 })
 
 test_that("extract_roc_text errors when selecting non-existing formalArgs or section name", {
@@ -121,9 +125,10 @@ test_that("extract_roc_text errors when selecting non-existing formalArgs or sec
                "c\\(.*formulae.*datum.*\\) .*match .*formalArgs")
   expect_error(extract_roc_text(stats::lm, "dot_params", "formula datum", NA),
                # Error message should contain 'datum' but not 'formula' (the legal formal argument)
-               "c\\((.(?<!formula))*datum.*\\) .*match .*formalArgs", perl = TRUE)
-  # This will trigger native 'roxygen' error, typically: 'datum' not found (but may vary with different locales)
-  expect_error(extract_roc_text(stats::lm, "dot_params", "formula -datum", NA), NULL)
+               "c\\((.(?<!formula))*datum.*\\) .*match .*formalArgs.*positive or negative", perl = TRUE)
+  expect_error(extract_roc_text(stats::lm, "dot_params", "formula -datum", NA),
+               # Error message should contain 'datum' but not 'formula' (the legal formal argument)
+               "c\\((.(?<!formula))*\\-datum.*\\) .*match .*formalArgs.*positive or negative", perl = TRUE)
 })
 
 test_that("extract_roc_text errors when selecting non-existing function or function without documentation", {

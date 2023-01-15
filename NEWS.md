@@ -1,5 +1,14 @@
 # roclang 0.2.1
 
+## Enhancements:
+
+* Improve parameter matching of `type = "dot_params"`. Now the negative selection of non-matched parameters also result in meaningful error messages.
+
+## Bug fixes:
+
+* Remove the restriction on selecting `...` when `type = "param"`. For example, `...` is documented as a meaningful parameter in `order`. Try `extract_roc_text(order, type = "param", select = "...")`. However, `...` cannot be inherited with `@inheritDotParams` tag, which is intrinsically not supported by `roxygen2` to date.
+
+
 # roclang 0.2.0
 
 ## Enhancements:

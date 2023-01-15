@@ -153,30 +153,26 @@ extract_roc_text <- function(
     # Split param to check formalArgs() in case some are co-documented
     select_pos <- stringr::str_split(select, ",")[[1L]]
     select_pos_lgl <- select_pos %in% methods::formalArgs(fun_function)
-    if (identical(select, "...") == TRUE) {
-      stop("cannot select '...' for type = 'param'; ",
-           "use type = 'dot_params' instead")
-    } else if (any(select_pos_lgl == FALSE)) {
+    if (any(select_pos_lgl == FALSE)) {
       stop("select = c('", paste(select_pos[select_pos_lgl == FALSE], collapse = "', '"),
            "') does not match any of methods::formalArgs(", fun, ")")
     }
   } else if (type %in% "dot_params" == TRUE) {
-    if (identical(select, "...") == TRUE) {
-      stop("cannot select '...' for type = 'dot_params'")
-    } else {
-      # It is OK to use "" to select all arguments as dot parameters
-      if (identical(select, "") == FALSE) {
-        # Get positive selection(s)
-        select_pos <- select %>%
-          paste(collapse = " ") %>%
-          stringr::str_split(" ") %>%
-          purrr::pluck(1L) %>%
-          stringr::str_subset("^-", negate = TRUE)
-        select_pos_lgl <- select_pos %in% methods::formalArgs(fun_function)
-        if (any(select_pos_lgl == FALSE)) {
-          stop("select = c('", paste(select_pos[select_pos_lgl == FALSE], collapse = "', '"),
-               "') does not match any of methods::formalArgs(", fun, ")")
-        }
+    # It is OK to use "" to select all arguments as dot parameters
+    if (identical(select, "") == FALSE) {
+      # Get positive selection(s)
+      select_pos <- select %>%
+        paste(collapse = " ") %>%
+        stringr::str_split(" ") %>%
+        purrr::pluck(1L)
+      select_pos_lgl <- select_pos %in% methods::formalArgs(fun_function) |
+        select_pos %in% paste0("-", methods::formalArgs(fun_function))
+      if (any(c("...", "-...") %in% select_pos == TRUE)) {
+        stop("cannot select '...' for type = 'dot_params'")
+      } else if (any(select_pos_lgl == FALSE)) {
+        stop("select = c('", paste(select_pos[select_pos_lgl == FALSE], collapse = "', '"),
+             "') does not match any of methods::formalArgs(", fun, "), ",
+             "either in a positive or negative way")
       }
     }
   }
