@@ -2,7 +2,7 @@
 
 ## Enhancements:
 
-* Improve parameter matching of `type = "dot_params"`. Now the negative selection of non-matched parameters also result in meaningful error messages.
+* Improve parameter matching of `type = "dot_params"`. Now the negative selection of non-matched parameters also results in meaningful error messages.
 
 ## Bug fixes:
 
