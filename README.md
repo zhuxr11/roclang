@@ -16,9 +16,9 @@ coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](
 stats](https://cranlogs.r-pkg.org/badges/grand-total/roclang)](https://cran.rstudio.com/web/packages/roclang/index.html)
 <!-- badges: end -->
 
-**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.2.1<br />
-**Author**: Xiurui Zhu<br /> **Modified**: 2023-04-29 13:46:42<br />
-**Compiled**: 2023-04-29 13:46:44
+**Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.2.2<br />
+**Author**: Xiurui Zhu<br /> **Modified**: 2023-04-29 13:53:20<br />
+**Compiled**: 2023-04-29 13:53:23
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -54,7 +54,9 @@ from the documentation of another function, e.g. `stats::lm`:
 
 ``` r
 library(roclang)
+```
 
+``` r
 # Inherit a standard section, and leave the first letter as is
 cat(
   extract_roc_text(stats::lm,
@@ -435,17 +437,18 @@ utils::sessionInfo()
 #> [1] stats     graphics  grDevices utils     datasets  methods   base     
 #> 
 #> other attached packages:
-#> [1] roclang_0.2.1
+#> [1] roclang_0.2.2  testthat_3.1.2
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] rex_1.2.1        rstudioapi_0.13  xml2_1.3.3       roxygen2_7.2.0  
-#>  [5] knitr_1.37       magrittr_2.0.2   tidyselect_1.1.1 R6_2.5.1        
-#>  [9] rlang_1.0.0      fastmap_1.1.0    fansi_1.0.2      stringr_1.4.0   
-#> [13] dplyr_1.0.7      tools_4.0.5      xfun_0.29        utf8_1.2.2      
-#> [17] DBI_1.1.2        cli_3.3.0        htmltools_0.5.2  ellipsis_0.3.2  
-#> [21] assertthat_0.2.1 yaml_2.2.2       digest_0.6.29    tibble_3.1.6    
-#> [25] lifecycle_1.0.1  crayon_1.4.2     tidyr_1.1.4      purrr_0.3.4     
-#> [29] vctrs_0.3.8      glue_1.6.1       evaluate_0.14    rmarkdown_2.11  
-#> [33] stringi_1.7.6    compiler_4.0.5   pillar_1.6.5     generics_0.1.1  
-#> [37] pkgconfig_2.0.3
+#>  [1] pillar_1.6.5     compiler_4.0.5   tools_4.0.5      digest_0.6.29   
+#>  [5] pkgload_1.2.4    evaluate_0.14    lifecycle_1.0.1  tibble_3.1.6    
+#>  [9] pkgconfig_2.0.3  rlang_1.0.0      rex_1.2.1        cli_3.3.0       
+#> [13] DBI_1.1.2        rstudioapi_0.13  yaml_2.2.2       xfun_0.29       
+#> [17] fastmap_1.1.0    xml2_1.3.3       roxygen2_7.2.0   withr_2.4.3     
+#> [21] dplyr_1.0.7      stringr_1.4.0    knitr_1.37       generics_0.1.1  
+#> [25] desc_1.4.0       vctrs_0.3.8      rprojroot_2.0.2  tidyselect_1.1.1
+#> [29] glue_1.6.1       R6_2.5.1         fansi_1.0.2      rmarkdown_2.11  
+#> [33] tidyr_1.1.4      purrr_0.3.4      magrittr_2.0.2   htmltools_0.5.2 
+#> [37] ellipsis_0.3.2   assertthat_0.2.1 utf8_1.2.2       stringi_1.7.6   
+#> [41] crayon_1.4.2     brio_1.1.3
 ```

@@ -27,7 +27,7 @@ roxygen_new <- utils::packageVersion("roxygen2") > "7.1.2"
 [![Download stats](https://cranlogs.r-pkg.org/badges/grand-total/roclang)](https://cran.rstudio.com/web/packages/roclang/index.html)
 <!-- badges: end -->
 
-**Package**: [*roclang*](https://github.com/zhuxr11/roclang) `r utils::packageVersion("roclang")`<br />
+**Package**: [*roclang*](https://github.com/zhuxr11/roclang) `r pkgload::pkg_version()`<br />
 **Author**: Xiurui Zhu<br />
 **Modified**: `r file.info("README.Rmd")$mtime`<br />
 **Compiled**: `r Sys.time()`
@@ -52,9 +52,15 @@ remotes::install_github("zhuxr11/roclang")
 
 These are some basic examples which show you how to diffuse sections (both general and self-defined) or parameters (including dot-parameters) from the documentation of another function, e.g. `stats::lm`:
 
-```{r example}
+```{r library, eval=FALSE}
 library(roclang)
+```
 
+```{r, include=FALSE}
+pkgload::load_all()
+```
+
+```{r example}
 # Inherit a standard section, and leave the first letter as is
 cat(
   extract_roc_text(stats::lm,

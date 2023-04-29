@@ -2,6 +2,8 @@
 
 ## Enhancements:
 
+* Change package loading in `README.Rmd` to `pkgload` so that the developmental version can be correctly loaded.
+
 * Add badge of total downloads to `README.Rmd`.
 
 
