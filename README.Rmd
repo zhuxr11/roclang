@@ -24,6 +24,7 @@ roxygen_new <- utils::packageVersion("roxygen2") > "7.1.2"
 [![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
 [![R-CMD-check](https://github.com/zhuxr11/roclang/workflows/R-CMD-check/badge.svg)](https://github.com/zhuxr11/roclang/actions)
 [![Codecov test coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
+[![Download stats](https://cranlogs.r-pkg.org/badges/grand-total/roclang)](https://cran.rstudio.com/web/packages/roclang/index.html)
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://github.com/zhuxr11/roclang) `r utils::packageVersion("roclang")`<br />

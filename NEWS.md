@@ -1,5 +1,10 @@
 # roclang 0.2.2
 
+## Enhancements:
+
+* Add badge of total downloads to `README.Rmd`.
+
+
 # roclang 0.2.1
 
 ## Enhancements:
