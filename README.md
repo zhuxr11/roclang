@@ -13,12 +13,12 @@ status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.or
 [![Codecov test
 coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
 [![Download
-stats](https://cranlogs.r-pkg.org/badges/grand-total/roclang)](https://cran.rstudio.com/web/packages/roclang/index.html)
+stats](https://cranlogs.r-pkg.org/badges/grand-total/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.2.2<br />
-**Author**: Xiurui Zhu<br /> **Modified**: 2023-04-29 13:53:20<br />
-**Compiled**: 2023-04-29 13:53:23
+**Author**: Xiurui Zhu<br /> **Modified**: 2023-05-26 19:32:03<br />
+**Compiled**: 2023-05-26 19:35:07
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of
@@ -434,21 +434,21 @@ utils::sessionInfo()
 #> [5] LC_TIME=Chinese (Simplified)_People's Republic of China.936    
 #> 
 #> attached base packages:
-#> [1] stats     graphics  grDevices utils     datasets  methods   base     
+#> [1] stats     graphics  grDevices datasets  utils     methods   base     
 #> 
 #> other attached packages:
 #> [1] roclang_0.2.2  testthat_3.1.2
 #> 
 #> loaded via a namespace (and not attached):
-#>  [1] pillar_1.6.5     compiler_4.0.5   tools_4.0.5      digest_0.6.29   
+#>  [1] compiler_4.0.5   pillar_1.6.5     tools_4.0.5      digest_0.6.29   
 #>  [5] pkgload_1.2.4    evaluate_0.14    lifecycle_1.0.1  tibble_3.1.6    
 #>  [9] pkgconfig_2.0.3  rlang_1.0.0      rex_1.2.1        cli_3.3.0       
-#> [13] DBI_1.1.2        rstudioapi_0.13  yaml_2.2.2       xfun_0.29       
-#> [17] fastmap_1.1.0    xml2_1.3.3       roxygen2_7.2.0   withr_2.4.3     
-#> [21] dplyr_1.0.7      stringr_1.4.0    knitr_1.37       generics_0.1.1  
-#> [25] desc_1.4.0       vctrs_0.3.8      rprojroot_2.0.2  tidyselect_1.1.1
-#> [29] glue_1.6.1       R6_2.5.1         fansi_1.0.2      rmarkdown_2.11  
-#> [33] tidyr_1.1.4      purrr_0.3.4      magrittr_2.0.2   htmltools_0.5.2 
-#> [37] ellipsis_0.3.2   assertthat_0.2.1 utf8_1.2.2       stringi_1.7.6   
-#> [41] crayon_1.4.2     brio_1.1.3
+#> [13] rstudioapi_0.13  yaml_2.2.2       xfun_0.39        fastmap_1.1.0   
+#> [17] xml2_1.3.3       roxygen2_7.2.0   withr_2.4.3      dplyr_1.0.7     
+#> [21] stringr_1.4.0    knitr_1.37       generics_0.1.1   desc_1.4.0      
+#> [25] vctrs_0.3.8      rprojroot_2.0.2  tidyselect_1.1.1 glue_1.6.1      
+#> [29] R6_2.5.1         fansi_1.0.2      rmarkdown_2.11   tidyr_1.1.4     
+#> [33] purrr_0.3.4      magrittr_2.0.2   htmltools_0.5.2  ellipsis_0.3.2  
+#> [37] renv_0.16.0      utf8_1.2.2       stringi_1.7.6    crayon_1.4.2    
+#> [41] brio_1.1.3
 ```
