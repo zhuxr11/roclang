@@ -1,5 +1,10 @@
 # roclang 0.2.3
 
+## Bug fixes
+
+* Fix a bug in tests due to changes in `Reference` section of `stats::lm()`.
+
+
 # roclang 0.2.2
 
 ## Enhancements:

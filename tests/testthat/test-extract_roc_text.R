@@ -11,7 +11,7 @@ test_that("extract_roc_text extracts parts of a function documentation", {
   expect_match(extract_roc_text(stats::lm, "general", "author", NA),
                "^The design was inspired by")
   expect_match(extract_roc_text(stats::lm, "general", "references", NA),
-               "^Chambers, J\\. M\\. \\(1992\\)")
+               "^Chambers.* J.*M.* \\(1992\\)")
   expect_match(extract_roc_text(stats::lm, "general", "examples", NA),
                "^require\\(graphics\\)")
   expect_match(extract_roc_text(stats::lm, "section", "Using time series", NA),
