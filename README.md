@@ -9,16 +9,16 @@
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
-[![R-CMD-check](https://github.com/zhuxr11/roclang/workflows/R-CMD-check/badge.svg)](https://github.com/zhuxr11/roclang/actions)
+[![R-CMD-check](https://github.com/zhuxr11/roclang/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/zhuxr11/roclang/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
+coverage](https://codecov.io/gh/zhuxr11/roclang/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang)
 [![Download
 stats](https://cranlogs.r-pkg.org/badges/grand-total/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
 **Package**: [*roclang*](https://github.com/zhuxr11/roclang) 0.2.3<br />
-**Author**: Xiurui Zhu<br /> **Modified**: 2025-08-15 23:30:28<br />
-**Compiled**: 2025-08-16 00:25:31
+**Author**: Xiurui Zhu<br /> **Modified**: 2025-08-16 00:34:12<br />
+**Compiled**: 2025-08-16 00:34:15
 
 The goal of `roclang` is to diffuse documentation content to facilitate
 more efficient programming. As a partner of

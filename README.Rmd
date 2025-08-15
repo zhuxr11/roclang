@@ -22,8 +22,8 @@ roxygen_new <- utils::packageVersion("roxygen2") > "7.1.2"
 <!-- badges: start -->
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![CRAN status](https://www.r-pkg.org/badges/version/roclang)](https://CRAN.R-project.org/package=roclang)
-[![R-CMD-check](https://github.com/zhuxr11/roclang/workflows/R-CMD-check/badge.svg)](https://github.com/zhuxr11/roclang/actions)
-[![Codecov test coverage](https://codecov.io/gh/zhuxr11/roclang/branch/master/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang?branch=master)
+[![R-CMD-check](https://github.com/zhuxr11/roclang/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/zhuxr11/roclang/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/zhuxr11/roclang/graph/badge.svg)](https://app.codecov.io/gh/zhuxr11/roclang)
 [![Download stats](https://cranlogs.r-pkg.org/badges/grand-total/roclang)](https://CRAN.R-project.org/package=roclang)
 <!-- badges: end -->
 
